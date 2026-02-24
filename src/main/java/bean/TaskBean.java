@@ -95,6 +95,22 @@ public class TaskBean implements Serializable {
 			return "bg-secondary"; // 灰
 		}
 	}
+	
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * タスクが期限切れかどうかを判定する
@@ -138,4 +154,5 @@ public class TaskBean implements Serializable {
 
 		return ""; // 期限内（正常）
 	}
+
 }

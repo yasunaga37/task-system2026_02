@@ -27,9 +27,9 @@ public class TaskDAO {
 				TaskBean task = new TaskBean();
 				task.setTaskId(rs.getInt("task_id"));
 				task.setTaskName(rs.getString("task_name"));
-				
+
 				task.setCategoryId(rs.getInt("category_id"));
-				
+
 				task.setCategoryName(rs.getString("category_name"));
 				task.setLimitDate(rs.getDate("limit_date"));
 				task.setStatusCode(rs.getString("status_code"));
@@ -40,5 +40,26 @@ public class TaskDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public void insert(TaskBean task) {
+		String sql = "INSERT INTO t_task (task_name, category_id, limit_date, user_id, status_code, memo, delete_flg) "
+				+
+				"VALUES (?, ?, ?, ?, ?, ?, '0')";
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, task.getTaskName());
+			pstmt.setInt(2, task.getCategoryId());
+			pstmt.setDate(3, task.getLimitDate());
+			pstmt.setString(4, task.getUserId());
+			pstmt.setString(5, task.getStatusCode());
+			pstmt.setString(6, task.getMemo());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

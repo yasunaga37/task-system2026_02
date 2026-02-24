@@ -35,27 +35,6 @@
 		        <tbody>
 		            <c:forEach var="task" items="${taskList}">
 		                <tr>
-<%-- 							期限の表示部分
-					        <td class="${task.overdue ? 'text-danger fw-bold' : ''}">
-					            <c:if test="${task.overdue}">
-					                <i class="bi bi-exclamation-triangle-fill"></i> </c:if>
-					            ${task.limitDate}
-					        </td>
-							<td>
-							    <span class="badge rounded-pill ${task.categoryColorClass}">
-							        ${task.categoryName}${task.categoryId}
-							    </span>
-							</td>
-		                    <td>${task.taskName}</td>
-		                    <td>
-		                        <c:choose>
-		                            <c:when test="${task.statusCode == '90'}"><span class="badge bg-secondary">${task.statusName}</span></c:when>
-		                            <c:when test="${task.statusCode == '50'}"><span class="badge bg-primary">${task.statusName}</span></c:when>
-		                            <c:otherwise><span class="badge bg-warning text-dark">${task.statusName}</span></c:otherwise>
-		                        </c:choose>
-		                    </td> --%>
-		                    
-		                    
 		                    <%-- 状態に応じたクラス名を決定 --%>
 						    <c:set var="status" value="${task.deadlineStatus}" />
 						    
