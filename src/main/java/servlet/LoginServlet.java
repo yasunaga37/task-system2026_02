@@ -18,7 +18,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// 1. 入力値の取得
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
 		String userId = request.getParameter("userId");
 		String pass = request.getParameter("password");
 
