@@ -47,10 +47,14 @@
 	
 	        <form action="CommentRegisterServlet" method="post" class="mt-4">
 	            <input type="hidden" name="taskId" value="${task.taskId}">
-	            <div class="input-group">
-	                <textarea name="commentBody" class="form-control" placeholder="コメントを入力..." required></textarea>
-	                <button type="submit" class="btn btn-primary">送信</button>
-	            </div>
+			    <div class="mb-3">
+			        <textarea name="commentBody" class="form-control" rows="3" placeholder="進捗報告やコメントを入力してください" required></textarea>
+			    </div>
+			    <div class="text-end">
+			        <button type="submit" class="btn btn-primary px-4">
+			            <i class="bi bi-send"></i> 送信する
+			        </button>
+			    </div>
 	        </form>
 	    </div>
 	</div>

@@ -13,7 +13,7 @@ import bean.CommentBean;
  * コメントに関するデータアクセスオブジェクト
  */
 public class CommentDAO {
-	
+
 	/**
 	 * タスクIDに紐づくコメントを全件取得する
 	 * @param taskId タスクID
@@ -45,5 +45,36 @@ public class CommentDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	/**
+	 * コメントを新規登録する
+	 * @param comment 登録するコメントの情報
+	 */
+	public void insert(CommentBean comment) {
+		// parent_comment_id は返信機能を使わない場合は NULL が入るようにします
+		String sql = "INSERT INTO t_comment (task_id, parent_comment_id, user_id, comment_body, delete_flg, update_datetime) "
+				+
+				"VALUES (?, ?, ?, ?, '0', CURRENT_TIMESTAMP)";
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setInt(1, comment.getTaskId());
+
+			// parentCommentId が null の場合は SQL の NULL をセット
+			if (comment.getParentCommentId() != null) {
+				pstmt.setInt(2, comment.getParentCommentId());
+			} else {
+				pstmt.setNull(2, java.sql.Types.INTEGER);
+			}
+
+			pstmt.setString(3, comment.getUserId());
+			pstmt.setString(4, comment.getCommentBody());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
