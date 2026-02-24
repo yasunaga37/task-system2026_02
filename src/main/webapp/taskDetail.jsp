@@ -41,7 +41,7 @@
 	                    <span><strong>${comment.userName}</strong> さんの発言</span>
 	                    <span>${comment.updateDatetime}</span>
 	                </div>
-	                <div class="mt-1">${comment.commentBody}</div>
+	                <div class="mt-1">commentId:${comment.commentId}&nbsp;&nbsp;   ${comment.commentBody}</div>
 	            </div>
 	        </c:forEach>
 	
