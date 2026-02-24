@@ -27,6 +27,9 @@ public class TaskDAO {
 				TaskBean task = new TaskBean();
 				task.setTaskId(rs.getInt("task_id"));
 				task.setTaskName(rs.getString("task_name"));
+				
+				task.setCategoryId(rs.getInt("category_id"));
+				
 				task.setCategoryName(rs.getString("category_name"));
 				task.setLimitDate(rs.getDate("limit_date"));
 				task.setStatusCode(rs.getString("status_code"));

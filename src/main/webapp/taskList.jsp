@@ -35,8 +35,17 @@
 		        <tbody>
 		            <c:forEach var="task" items="${taskList}">
 		                <tr>
-		                    <td>${task.limitDate}</td>
-		                    <td><span class="badge bg-info text-dark">${task.categoryName}</span></td>
+<%-- 							期限の表示部分
+					        <td class="${task.overdue ? 'text-danger fw-bold' : ''}">
+					            <c:if test="${task.overdue}">
+					                <i class="bi bi-exclamation-triangle-fill"></i> </c:if>
+					            ${task.limitDate}
+					        </td>
+							<td>
+							    <span class="badge rounded-pill ${task.categoryColorClass}">
+							        ${task.categoryName}${task.categoryId}
+							    </span>
+							</td>
 		                    <td>${task.taskName}</td>
 		                    <td>
 		                        <c:choose>
@@ -44,7 +53,41 @@
 		                            <c:when test="${task.statusCode == '50'}"><span class="badge bg-primary">${task.statusName}</span></c:when>
 		                            <c:otherwise><span class="badge bg-warning text-dark">${task.statusName}</span></c:otherwise>
 		                        </c:choose>
-		                    </td>
+		                    </td> --%>
+		                    
+		                    
+		                    <%-- 状態に応じたクラス名を決定 --%>
+						    <c:set var="status" value="${task.deadlineStatus}" />
+						    
+						    <tr class="${status == 'muted' ? 'text-muted' : ''}">
+						        <td class="
+						            ${status == 'danger' ? 'text-danger fw-bold' : ''} 
+						            ${status == 'warning' ? 'text-warning fw-bold' : ''}
+						        ">
+						            <c:choose>
+						                <c:when test="${status == 'danger'}">
+						                    <i class="bi bi-exclamation-triangle-fill"></i> </c:when>
+						                <c:when test="${status == 'warning'}">
+						                    <i class="bi bi-clock-fill"></i> </c:when>
+						            </c:choose>
+						            ${task.limitDate}
+						        </td>
+						
+						        <td><span class="badge rounded-pill ${task.categoryColorClass}">${task.categoryName}</span></td>
+						        
+						        <%-- 完了済みはタスク名に打ち消し線を入れるなどのアレンジも可能 --%>
+						        <td class="${status == 'muted' ? 'text-decoration-line-through' : ''}">
+						            ${task.taskName}
+						        </td>
+						
+						        <td>
+						            <%-- ステータスのバッジ表示 --%>
+						            <c:choose>
+						                <c:when test="${status == 'muted'}"><span class="badge bg-secondary">${task.statusName}</span></c:when>
+						                <c:when test="${task.statusCode == '50'}"><span class="badge bg-primary">${task.statusName}</span></c:when>
+						                <c:otherwise><span class="badge bg-light text-dark border">${task.statusName}</span></c:otherwise>
+						            </c:choose>
+						        </td>
 		                    <td>
 		                        <a href="TaskEditServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">編集</a>
 		                    </td>
