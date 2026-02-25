@@ -18,7 +18,6 @@ public class TaskBean implements Serializable {
 	public TaskBean() {
 	}
 
-	// ゲッター・セッター（Eclipseの機能「ソース > ゲッターおよびセッターの生成」で作成してください）
 	public int getTaskId() {
 		return taskId;
 	}
@@ -74,6 +73,22 @@ public class TaskBean implements Serializable {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
+	
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	/**
 	 * 
@@ -96,21 +111,20 @@ public class TaskBean implements Serializable {
 		}
 	}
 	
-	public String getMemo() {
-		return memo;
+	/**
+	 * ステータスコードに応じた色情報を返すメソッド
+	 * @return ステータスコードに応じたBootstrapの背景色クラスを返す
+	 */
+	public String getStatusColorClass() {
+	    switch (this.statusCode) {
+	        case "00": return "bg-secondary";
+	        case "10": return "bg-warning text-dark";
+	        case "50": return "bg-primary";
+	        case "90": return "bg-dark";
+	        default: return "bg-light text-dark";
+	    }
 	}
 
-	public void setMemo(String memo) {
-		this.memo = memo;
-	}
-	
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 
 	/**
 	 * タスクが期限切れかどうかを判定する

@@ -60,12 +60,8 @@
 						        </td>
 						
 						        <td>
-						            <%-- ステータスのバッジ表示 --%>
-						            <c:choose>
-						                <c:when test="${status == 'muted'}"><span class="badge bg-secondary">${task.statusName}</span></c:when>
-						                <c:when test="${task.statusCode == '50'}"><span class="badge bg-primary">${task.statusName}</span></c:when>
-						                <c:otherwise><span class="badge bg-light text-dark border">${task.statusName}</span></c:otherwise>
-						            </c:choose>
+ 						            <%-- ステータスのバッジ表示 --%>
+						            <span class="badge rounded-pill ${task.statusColorClass}">${task.statusName}</span>
 						        </td>
 		                    <td>
 		                    		<a href="TaskDetailServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">詳細</a>
