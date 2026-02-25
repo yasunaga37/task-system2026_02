@@ -39,7 +39,7 @@
 	                        <select name="categoryId" class="form-select">
 							    <c:forEach var="cat" items="${categoryList}">
 							        <%-- カテゴリIDが一致する場合のみ selected を付与 --%>
-							        <option value="${cat.categoryName}" ${cat.categoryName == task.categoryName ? 'selected' : ''}>
+							        <option value="${cat.categoryId}" ${cat.categoryId == task.categoryId ? 'selected' : ''}>
 							            ${cat.categoryName}
 							        </option>
 							    </c:forEach>
