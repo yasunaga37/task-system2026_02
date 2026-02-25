@@ -51,20 +51,25 @@ public class CommentRegisterServlet extends HttpServlet {
 		UserBean user = (UserBean) session.getAttribute("loginUser");
 
 		if (taskIdStr != null && user != null) {
-			int taskId = Integer.parseInt(taskIdStr);
+		    int taskId = Integer.parseInt(request.getParameter("taskId"));
+//		    String commentBody = request.getParameter("commentBody");
+		    // 返信の場合は親IDが来る（なければ0）
+		    String parentIdStr = request.getParameter("parentCommentId");
+		    int parentCommentId = (parentIdStr != null) ? Integer.parseInt(parentIdStr) : 0;
 
-			// 2. Beanに値をセット
-			CommentBean comment = new CommentBean();
-			comment.setTaskId(taskId);
-			comment.setUserId(user.getUserId());
-			comment.setCommentBody(commentBody);
+//		    HttpSession session = request.getSession();
+//		    UserBean user = (UserBean) session.getAttribute("loginUser");
 
-			// 3. DAOで保存
-			CommentDAO dao = new CommentDAO();
-			dao.insert(comment);
+		    CommentBean bean = new CommentBean();
+		    bean.setTaskId(taskId);
+		    bean.setParentCommentId(parentCommentId);
+		    bean.setUserId(user.getUserId());
+		    bean.setCommentBody(commentBody);
 
-			// 4. 元のタスク詳細画面へリダイレクト（taskIdをパラメータに付ける）
-			response.sendRedirect("TaskDetailServlet?taskId=" + taskId);
+		    CommentDAO dao = new CommentDAO();
+		    dao.insert(bean);
+
+		    response.sendRedirect("TaskDetailServlet?taskId=" + taskId);
 		} else {
 			// エラー時やセッション切れ時はログイン画面へ
 			response.sendRedirect("login.jsp");

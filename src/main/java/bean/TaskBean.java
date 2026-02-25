@@ -11,6 +11,7 @@ public class TaskBean implements Serializable {
 	private String categoryName; // m_categoryから取得
 	private Date limitDate;
 	private String userId;
+	private String userName;
 	private String statusCode;
 	private String statusName; // m_statusから取得
 	private String memo;
@@ -88,6 +89,14 @@ public class TaskBean implements Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**

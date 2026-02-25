@@ -34,7 +34,8 @@ public class CommentDAO {
 				while (rs.next()) {
 					CommentBean bean = new CommentBean();
 					bean.setCommentId(rs.getInt("comment_id"));
-					bean.setParentCommentId((Integer) rs.getObject("parent_comment_id"));
+//					bean.setParentCommentId((Integer) rs.getObject("parent_comment_id"));
+					bean.setParentCommentId(rs.getInt("parent_comment_id"));
 					bean.setUserName(rs.getString("user_name"));
 					bean.setCommentBody(rs.getString("comment_body"));
 					bean.setupdateDatetime(rs.getTimestamp("update_datetime"));
@@ -63,9 +64,10 @@ public class CommentDAO {
 			pstmt.setInt(1, comment.getTaskId());
 
 			// parentCommentId が null の場合は SQL の NULL をセット
-			if (comment.getParentCommentId() != null) {
+			if (comment.getParentCommentId() != null && comment.getParentCommentId() > 0) {
 				pstmt.setInt(2, comment.getParentCommentId());
 			} else {
+				// 0 または null の場合は、DB側に正しく NULL をセットする
 				pstmt.setNull(2, java.sql.Types.INTEGER);
 			}
 

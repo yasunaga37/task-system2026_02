@@ -83,10 +83,11 @@ public class TaskDAO {
 	 */
 	public TaskBean findByPk(int taskId) {
 		TaskBean task = null;
-		String sql = "SELECT t.*, c.category_name, s.status_name " +
+		String sql = "SELECT t.*, c.category_name, s.status_name, u.user_name  " +
 				"FROM t_task t " +
 				"JOIN m_category c ON t.category_id = c.category_id " +
 				"JOIN m_status s ON t.status_code = s.status_code " +
+				"JOIN m_user u ON t.user_id = u.user_id " + 
 				"WHERE t.task_id = ? AND t.delete_flg = '0'";
 
 		try (Connection conn = DBManager.getConnection();
@@ -104,6 +105,7 @@ public class TaskDAO {
 					task.setStatusCode(rs.getString("status_code"));
 					task.setStatusName(rs.getString("status_name"));
 					task.setMemo(rs.getString("memo"));
+					task.setUserName(rs.getString("user_name"));
 				}
 			}
 		} catch (SQLException e) {
