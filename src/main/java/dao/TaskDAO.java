@@ -20,12 +20,13 @@ public class TaskDAO {
 	 */
 	public List<TaskBean> findAll() {
 		List<TaskBean> list = new ArrayList<>();
+		// ステータスコードの昇順（00→10→50→90）、その次に期限日の昇順で並べる
 		String sql = "SELECT t.*, c.category_name, s.status_name " +
 				"FROM t_task t " +
 				"JOIN m_category c ON t.category_id = c.category_id " +
 				"JOIN m_status s ON t.status_code = s.status_code " +
 				"WHERE t.delete_flg = '0' " + // 論理削除フィルタ
-				"ORDER BY t.limit_date ASC";
+				"ORDER BY t.status_code ASC, t.limit_date ASC";
 
 		try (Connection conn = DBManager.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
