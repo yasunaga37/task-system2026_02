@@ -73,7 +73,7 @@ public class TaskBean implements Serializable {
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
-	
+
 	public String getMemo() {
 		return memo;
 	}
@@ -81,7 +81,7 @@ public class TaskBean implements Serializable {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -110,26 +110,30 @@ public class TaskBean implements Serializable {
 			return "bg-secondary"; // 灰
 		}
 	}
-	
+
 	/**
 	 * ステータスコードに応じた色情報を返すメソッド
 	 * @return ステータスコードに応じたBootstrapの背景色クラスを返す
 	 */
 	public String getStatusColorClass() {
-	    switch (this.statusCode) {
-	        case "00": return "bg-secondary";
-	        case "10": return "bg-warning text-dark";
-	        case "50": return "bg-primary";
-	        case "90": return "bg-dark";
-	        default: return "bg-light text-dark";
-	    }
+		switch (this.statusCode) {
+		case "00":
+			return "bg-secondary";
+		case "10":
+			return "bg-warning text-dark";
+		case "50":
+			return "bg-primary";
+		case "90":
+			return "bg-dark";
+		default:
+			return "bg-light text-dark";
+		}
 	}
 
-
 	/**
-	 * タスクが期限切れかどうかを判定する
-	 * @return 期限切れならtrue、そうでなければfalse
-	 */
+		* タスクが期限切れかどうかを判定する
+		* @return 期限切れならtrue、そうでなければfalse
+		*/
 	public boolean isOverdue() {
 		if (this.limitDate == null || "90".equals(this.statusCode)) {
 			return false; // 期限未設定、または完了済みなら強調しない
@@ -142,7 +146,6 @@ public class TaskBean implements Serializable {
 		return limit.isBefore(today); // 今日より前なら true
 	}
 
-	
 	/**
 	 * タスクの期限状態に応じたBootstrapのクラスを返す
 	 * @return 期限切れなら "danger"、今日が期限なら "warning"、完了済みなら "muted"、それ以外は ""
