@@ -109,4 +109,49 @@ public class TaskDAO {
 		}
 		return task;
 	}
+
+	/**
+	 * タスクを更新する
+	 * @param task 更新するタスクの情報
+	 */
+	public void update(TaskBean task) {
+		String sql = "UPDATE t_task SET task_name = ?, category_id = ?, limit_date = ?, " +
+				"status_code = ?, memo = ?, update_datetime = CURRENT_TIMESTAMP " +
+				"WHERE task_id = ?";
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, task.getTaskName());
+			pstmt.setInt(2, task.getCategoryId());
+			pstmt.setDate(3, task.getLimitDate());
+			pstmt.setString(4, task.getStatusCode());
+			pstmt.setString(5, task.getMemo());
+			pstmt.setInt(6, task.getTaskId());
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 指定したタスクのステータスのみを更新します。
+	 * @param taskId
+	 * @param statusCode
+	 */
+	public void updateStatus(int taskId, String statusCode) {
+	    String sql = "UPDATE t_task SET status_code = ?, update_datetime = CURRENT_TIMESTAMP WHERE task_id = ?";
+
+	    try (Connection conn = DBManager.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        
+	        pstmt.setString(1, statusCode);
+	        pstmt.setInt(2, taskId);
+
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }

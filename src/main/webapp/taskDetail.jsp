@@ -19,17 +19,48 @@
     <%@ include file="/common/header.jsp" %>
 
     <main class="container">
+    
+    		<!-- 成功メッセージの表示 -->
+    		<div class="container mt-3">
+		    <c:if test="${not empty successMsg}">
+		        <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+		            <i class="bi bi-check-circle-fill me-2"></i>
+		            ${successMsg}
+		            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		        </div>
+		        <%-- 一度表示したらセッションから削除する --%>
+		        <c:remove var="successMsg" scope="session" />
+		    </c:if>
+		</div>
+		
 	    <div class="card mb-4 shadow-sm">
 	    <div class="card-header bg-dark text-white d-flex justify-content-between">
-	        <span>タスク詳細 #${task.taskId}</span>
-	        <span class="badge ${task.categoryColorClass}">${task.categoryName}</span>
+	        <span>タスク詳細 #${task.taskId}</span>	        
+	        <span class="badge ${task.categoryColorClass}">${task.categoryName}</span>	        
 	    </div>
 	    <div class="card-body">
-	        <h3 class="card-title">${task.taskName}</h3>
-	        <p class="text-muted">期限：${task.limitDate} / ステータス：${task.statusName}</p>
-	        <hr>
-	        <p class="card-text">${task.memo}</p>
-	    </div>
+		    <h3 class="card-title fw-bold mb-3">${task.taskName}</h3>
+		    
+			<div class="d-flex align-items-center mb-3">
+				<a href="TaskEditServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">
+			        <i class="bi bi-pencil-square"></i> 編集する
+			    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+			    <c:if test="${task.statusCode != '90'}">
+			        <form action="TaskStatusUpdateServlet" method="post" class="me-2">
+			            <input type="hidden" name="taskId" value="${task.taskId}">
+			            <input type="hidden" name="statusCode" value="90"> <button type="submit" class="btn btn-sm btn-success">
+			                <i class="bi bi-check-circle"></i> 完了にする
+			            </button>
+			        </form>
+			    </c:if>
+			</div>
+		
+		    <p class="text-muted mb-0">
+		        期限：${task.limitDate} / ステータス：${task.statusName}
+		    </p>
+		    <hr>
+		    <div class="card-text border p-3 bg-light rounded" style="white-space: pre-wrap;">${task.memo}</div>
+		</div>
 	</div>
 	
 	<div class="card shadow-sm">
