@@ -19,6 +19,13 @@ public class LoginFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
+		
+		// --- ここから追加：ブラウザキャッシュを無効化する設定 ---
+	    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+	    res.setHeader("Pragma", "no-cache"); // HTTP 1.0
+	    res.setDateHeader("Expires", 0); // Proxies
+	    // --- ここまで追加 ---
+		
 		HttpSession session = req.getSession(false);
 
 		// リクエストされたURL（パス）を取得
