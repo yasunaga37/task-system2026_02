@@ -59,8 +59,8 @@
 		    		<div class="mb-3">
 				    <label class="form-label text-muted small">担当者</label>
 				    <i class="bi bi-person-fill"></i> ${task.userName} 様
+				    &nbsp;&nbsp;&nbsp;&nbsp;期限：${task.limitDate} / &nbsp;&nbsp;ステータス：${task.statusName}
 				</div>
-		        期限：${task.limitDate} / ステータス：${task.statusName}
 		    </p>
 		    <hr>
 		    <div class="card-text border p-3 bg-light rounded" style="white-space: pre-wrap;">${task.memo}</div>
@@ -71,32 +71,38 @@
 	    <div class="card-header bg-light fw-bold">コメント・進捗報告</div>
 	    <div class="card-body">
 	        <c:forEach var="comment" items="${commentList}">
-			    <div class="mb-3 ${comment.parentCommentId > 0 ? 'ms-5 border-start ps-3' : ''}">
+			    <%-- 階層(level)に応じて左側の余白（margin-left）を計算して付与 --%>
+				<div class="mb-3 border-start ps-3" style="margin-left: ${(comment.level - 1) * 3}rem;"> 
+			    
 			        <div class="d-flex justify-content-between small text-muted">
 			            <%-- 名前が表示されている部分 --%>
 			            <span class="comment-author"><strong>${comment.userName}</strong> さんの発言</span>
 			            <span>${comment.updateDatetime}</span>
 			        </div>
-			        <div class="mt-1">${comment.commentBody}</div>
+			        <div class="mt-1">${comment.commentId}&nbsp;&nbsp;${comment.commentBody}</div>
 			        
-			        <c:if test="${comment.parentCommentId == 0}">
-			            <%-- 修正ポイント：引数に名前を追加（シングルクォートで囲む） --%>
-			            <button class="btn btn-sm btn-link p-0 text-decoration-none" 
-			                    onclick="toggleReplyForm(${comment.commentId}, '${comment.userName}')">返信</button>
-			            
-			            <div id="replyForm-${comment.commentId}" style="display:none;" class="mt-2">
-			                <form action="CommentRegisterServlet" method="post">
-			                    <input type="hidden" name="taskId" value="${task.taskId}">
-			                    <input type="hidden" name="parentCommentId" value="${comment.commentId}">
-			                    <div class="input-group">
-			                        <%-- 修正ポイント：idを付与してJSから操作しやすくする --%>
-			                        <input type="text" name="commentBody" id="replyInput-${comment.commentId}" 
-			                               class="form-control form-control-sm" placeholder="返信を入力...">
-			                        <button class="btn btn-sm btn-outline-primary" type="submit">送信</button>
-			                    </div>
-			                </form>
-			            </div>
-			        </c:if>
+			        <%-- 修正ポイント：全てのコメント（親・子問わず）に返信ボタンを表示する --%>
+					<div class="mt-2">
+					    <button class="btn btn-sm btn-link p-0 text-decoration-none"
+					            onclick="toggleReplyForm(${comment.commentId}, '${comment.userName}')">
+					        返信
+					    </button>
+					
+					    <%-- 返信入力フォーム --%>
+					    <div id="replyForm-${comment.commentId}" style="display:none;" class="mt-2">
+					        <form action="CommentRegisterServlet" method="post">
+					            <input type="hidden" name="taskId" value="${task.taskId}">
+					            <%-- 重要：ここでそのコメント自体のIDを親IDとして送る --%>
+					            <input type="hidden" name="parentCommentId" value="${comment.commentId}">
+					            
+					            <div class="input-group">
+					                <input type="text" name="commentBody" id="replyInput-${comment.commentId}"
+					                       class="form-control form-control-sm" placeholder="返信を入力...">
+					                <button class="btn btn-sm btn-outline-primary" type="submit">送信</button>
+					            </div>
+					        </form>
+					    </div>
+					</div>
 			    </div>
 			</c:forEach>
 			

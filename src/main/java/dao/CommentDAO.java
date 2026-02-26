@@ -21,10 +21,23 @@ public class CommentDAO {
 	 */
 	public List<CommentBean> findByTaskId(int taskId) {
 		List<CommentBean> list = new ArrayList<>();
-		String sql = "SELECT c.*, u.user_name FROM t_comment c " +
-				"JOIN m_user u ON c.user_id = u.user_id " +
-				"WHERE c.task_id = ? AND c.delete_flg = '0' " +
-				"ORDER BY update_datetime ASC";
+		// MySQL 8.0以降で利用可能な再帰クエリ
+		String sql = 
+			    "WITH RECURSIVE comment_tree AS (" +
+			    "  /* 1. 親コメントの取得時にユーザー名を結合 */" +
+			    "  SELECT c.*, u.user_name, 1 AS level, CAST(c.comment_id AS CHAR(255)) AS path " +
+			    "  FROM t_comment c " +
+			    "  JOIN m_user u ON c.user_id = u.user_id " +
+			    "  WHERE c.parent_comment_id IS NULL AND c.task_id = ? AND c.delete_flg = '0' " +
+			    "  UNION ALL " +
+			    "  /* 2. 返信コメントの取得時にもユーザー名を結合 */" +
+			    "  SELECT c.*, u.user_name, ct.level + 1, CONCAT(ct.path, '.', c.comment_id) " +
+			    "  FROM t_comment c " +
+			    "  JOIN m_user u ON c.user_id = u.user_id " +
+			    "  JOIN comment_tree ct ON c.parent_comment_id = ct.comment_id " +
+			    "  WHERE c.delete_flg = '0' " +
+			    ") " +
+			    "SELECT * FROM comment_tree ORDER BY path ASC"; // path順に並べることで親子が隣接する
 
 		try (Connection conn = DBManager.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -34,11 +47,11 @@ public class CommentDAO {
 				while (rs.next()) {
 					CommentBean bean = new CommentBean();
 					bean.setCommentId(rs.getInt("comment_id"));
-//					bean.setParentCommentId((Integer) rs.getObject("parent_comment_id"));
 					bean.setParentCommentId(rs.getInt("parent_comment_id"));
 					bean.setUserName(rs.getString("user_name"));
 					bean.setCommentBody(rs.getString("comment_body"));
-					bean.setupdateDatetime(rs.getTimestamp("update_datetime"));
+					bean.setUpdateDatetime(rs.getTimestamp("update_datetime"));
+					bean.setLevel(rs.getInt("level"));
 					list.add(bean);
 				}
 			}

@@ -14,6 +14,7 @@ public class CommentBean implements Serializable {
     private String userName; // m_userと結合して取得
     private String commentBody;
 	private Timestamp updateDatetime;
+	private int level; // コメントの階層（0:通常コメント、1:返信）
 
 	public int getCommentId() {
 		return commentId;
@@ -63,11 +64,19 @@ public class CommentBean implements Serializable {
 		this.commentBody = commentBody;
 	}
 
-	public Timestamp getupdateDatetime() {
+	public Timestamp getUpdateDatetime() {
 		return updateDatetime;
 	}
 
-	public void setupdateDatetime(Timestamp createdAt) {
+	public void setUpdateDatetime(Timestamp createdAt) {
 		this.updateDatetime = createdAt;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }
