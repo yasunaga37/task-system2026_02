@@ -21,10 +21,11 @@ public class TaskDAO {
 	public List<TaskBean> findAll() {
 		List<TaskBean> list = new ArrayList<>();
 		// ステータスコードの昇順（00→10→50→90）、その次に期限日の昇順で並べる
-		String sql = "SELECT t.*, c.category_name, s.status_name " +
+		String sql = "SELECT t.*, c.category_name, s.status_name, u.user_name " +
 				"FROM t_task t " +
 				"JOIN m_category c ON t.category_id = c.category_id " +
 				"JOIN m_status s ON t.status_code = s.status_code " +
+				"JOIN m_user u ON t.user_id = u.user_id " +
 				"WHERE t.delete_flg = '0' " + // 論理削除フィルタ
 				"ORDER BY t.status_code ASC, t.limit_date ASC";
 
@@ -36,10 +37,9 @@ public class TaskDAO {
 				TaskBean task = new TaskBean();
 				task.setTaskId(rs.getInt("task_id"));
 				task.setTaskName(rs.getString("task_name"));
-
 				task.setCategoryId(rs.getInt("category_id"));
-
 				task.setCategoryName(rs.getString("category_name"));
+				task.setUserName(rs.getString("user_name"));
 				task.setLimitDate(rs.getDate("limit_date"));
 				task.setStatusCode(rs.getString("status_code"));
 				task.setStatusName(rs.getString("status_name"));

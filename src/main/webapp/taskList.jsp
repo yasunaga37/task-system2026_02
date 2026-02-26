@@ -25,8 +25,10 @@
 		    <table class="table table-hover">
 		        <thead class="table-light">
 		            <tr>
+		            		<th>TaskID</th>
 		                <th>期限</th>
 		                <th>カテゴリ</th>
+		                <th>担当者</th>
 		                <th>タスク名</th>
 		                <th>ステータス</th>
 		                <th>操作</th>
@@ -39,10 +41,10 @@
 						    <c:set var="status" value="${task.deadlineStatus}" />
 						    
 						    <tr class="${status == 'muted' ? 'text-muted' : ''}">
+						    		<td>${task.taskId}</td>
 						        <td class="
 						            ${status == 'danger' ? 'text-danger fw-bold' : ''} 
-						            ${status == 'warning' ? 'text-warning fw-bold' : ''}
-						        ">
+						            ${status == 'warning' ? 'text-warning fw-bold' : ''}">
 						            <c:choose>
 						                <c:when test="${status == 'danger'}">
 						                    <i class="bi bi-exclamation-triangle-fill"></i> </c:when>
@@ -53,6 +55,8 @@
 						        </td>
 						
 						        <td><span class="badge rounded-pill ${task.categoryColorClass}">${task.categoryName}</span></td>
+						        
+						        <td><i class="bi-geo-alt small border">${task.userName}</i></td>
 						        
 						        <%-- 完了済みはタスク名に打ち消し線を入れるなどのアレンジも可能 --%>
 						        <td class="${status == 'muted' ? 'text-decoration-line-through' : ''}">
