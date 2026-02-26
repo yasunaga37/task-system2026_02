@@ -117,7 +117,7 @@
 				        form.style.display = 'none';
 				    }
 				}
-				</script>
+			</script>
 	
 	        <form action="CommentRegisterServlet" method="post" class="mt-4">
 	            <input type="hidden" name="taskId" value="${task.taskId}">
