@@ -39,20 +39,30 @@
 	        <span class="badge ${task.categoryColorClass}">${task.categoryName}</span>	        
 	    </div>
 	    <div class="card-body">
-		    <h3 class="card-title fw-bold mb-3">${task.taskName}</h3>
-		    
-			<div class="d-flex align-items-center mb-3">
-				<a href="TaskEditServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">
-			        <i class="bi bi-pencil-square"></i> 編集する
-			    </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			    <c:if test="${task.statusCode != '90'}">
-			        <form action="TaskStatusUpdateServlet" method="post" class="me-2">
-			            <input type="hidden" name="taskId" value="${task.taskId}">
-			            <input type="hidden" name="statusCode" value="90"> <button type="submit" class="btn btn-sm btn-success">
-			                <i class="bi bi-check-circle"></i> 完了にする
-			            </button>
-			        </form>
-			    </c:if>
+		    <%-- タスク名とボタンを横並びにする --%>
+			<div class="d-flex align-items-center mb-4 gap-3">
+			    <%-- 既存の h3 スタイルを維持 --%>
+			    <h3 class="card-title fw-bold mb-0">${task.taskName}</h3>
+			
+			    <div class="d-flex gap-2">
+			        <%-- 編集ボタン：編集画面へ遷移する --%>
+			        <a href="TaskEditServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">
+			            <i class="bi bi-pencil-square"></i> 編集する
+			        </a>
+			
+			        <%-- 完了ボタン：TaskStatusUpdateServlet に statusCode=90 を送る --%>
+			        <c:if test="${task.statusCode != '90'}">
+			            <form action="TaskStatusUpdateServlet" method="post" style="display: inline;" 
+			                  onsubmit="return confirm('このタスクを完了にしてもよろしいですか？');">
+			                <input type="hidden" name="taskId" value="${task.taskId}">
+			                <%-- 完了コード '90' を送信 --%>
+			                <input type="hidden" name="statusCode" value="90">
+			                <button type="submit" class="btn btn-sm btn-success">
+			                    <i class="bi bi-check-lg"></i> 完了する
+			                </button>
+			            </form>
+			        </c:if>
+			    </div>
 			</div>
 		
 		    <p class="text-muted mb-0">

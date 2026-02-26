@@ -24,14 +24,17 @@ public class CommentDAO {
 		// MySQL 8.0以降で利用可能な再帰クエリ
 		String sql = 
 			    "WITH RECURSIVE comment_tree AS (" +
-			    "  /* 1. 親コメントの取得時にユーザー名を結合 */" +
-			    "  SELECT c.*, u.user_name, 1 AS level, CAST(c.comment_id AS CHAR(255)) AS path " +
+			    "  /* 1. 親コメント：時間の情報を path に含める */" +
+			    "  SELECT c.*, u.user_name, 1 AS level, " +
+			    "         /* 秒単位までの時間を文字列にして path の一部にする */" +
+			    "         CAST(CONCAT(UNIX_TIMESTAMP(c.update_datetime), '_', LPAD(c.comment_id, 10, '0')) AS CHAR(255)) AS path " +
 			    "  FROM t_comment c " +
 			    "  JOIN m_user u ON c.user_id = u.user_id " +
 			    "  WHERE c.parent_comment_id IS NULL AND c.task_id = ? AND c.delete_flg = '0' " +
 			    "  UNION ALL " +
-			    "  /* 2. 返信コメントの取得時にもユーザー名を結合 */" +
-			    "  SELECT c.*, u.user_name, ct.level + 1, CONCAT(ct.path, '.', c.comment_id) " +
+			    "  /* 2. 返信コメント：親の path の後ろに自分の時間を繋げる */" +
+			    "  SELECT c.*, u.user_name, ct.level + 1, " +
+			    "         CONCAT(ct.path, '/', UNIX_TIMESTAMP(c.update_datetime), '_', LPAD(c.comment_id, 10, '0')) " +
 			    "  FROM t_comment c " +
 			    "  JOIN m_user u ON c.user_id = u.user_id " +
 			    "  JOIN comment_tree ct ON c.parent_comment_id = ct.comment_id " +
