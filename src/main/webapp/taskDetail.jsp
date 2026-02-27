@@ -157,19 +157,19 @@
 				    const textElement = document.getElementById('comment-text-' + commentId);
 				    const currentText = textElement.innerText;
 				    
-				    // テキストを編集用のフォームに置き換える
+				    // ${commentId} の前に \ を付けて、JSPの処理対象から外します
 				    textElement.innerHTML = `
 				        <form action="CommentUpdateServlet" method="post" class="mt-2">
-				            <input type="hidden" name="commentId" value="${commentId}">
+				            <input type="hidden" name="commentId" value="\${commentId}">
 				            <input type="hidden" name="taskId" value="${task.taskId}">
 				            <div class="input-group">
-				                <input type="text" name="commentBody" class="form-control form-control-sm" value="${currentText}">
+				                <input type="text" name="commentBody" class="form-control form-control-sm" value="\${currentText}">
 				                <button class="btn btn-sm btn-primary" type="submit">更新</button>
 				                <button class="btn btn-sm btn-outline-secondary" type="button" onclick="location.reload()">キャンセル</button>
 				            </div>
 				        </form>
 				    `;
-				}
+			    }	
 			</script>
 
 				<form action="CommentRegisterServlet" method="post" class="mt-4">

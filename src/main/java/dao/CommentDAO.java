@@ -112,4 +112,21 @@ public class CommentDAO {
 	    }
 	}
 	
+	/**
+	 * コメントの内容を更新する
+	 * @param commentId 更新するコメントのID
+	 * @param body 新しいコメントの内容
+	 */
+	public void updateComment(int commentId, String body) {
+	    String sql = "UPDATE t_comment SET comment_body = ?, update_datetime = NOW() WHERE comment_id = ?";
+	    try (Connection conn = DBManager.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, body);
+	        pstmt.setInt(2, commentId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 }
