@@ -51,6 +51,7 @@ public class CommentDAO {
 					CommentBean bean = new CommentBean();
 					bean.setCommentId(rs.getInt("comment_id"));
 					bean.setParentCommentId(rs.getInt("parent_comment_id"));
+					bean.setUserId(rs.getString("user_id"));
 					bean.setUserName(rs.getString("user_name"));
 					bean.setCommentBody(rs.getString("comment_body"));
 					bean.setUpdateDatetime(rs.getTimestamp("update_datetime"));
@@ -95,4 +96,20 @@ public class CommentDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * コメントを論理削除する
+	 * @param commentId 削除するコメントのID
+	 */
+	public void deleteComment(int commentId) {
+	    String sql = "UPDATE t_comment SET delete_flg = '1', update_datetime = NOW() WHERE comment_id = ?";
+	    try (Connection conn = DBManager.getConnection();
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setInt(1, commentId);
+	        pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 }
