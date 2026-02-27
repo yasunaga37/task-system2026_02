@@ -87,7 +87,7 @@ public class TaskDAO {
 				"FROM t_task t " +
 				"JOIN m_category c ON t.category_id = c.category_id " +
 				"JOIN m_status s ON t.status_code = s.status_code " +
-				"JOIN m_user u ON t.user_id = u.user_id " + 
+				"JOIN m_user u ON t.user_id = u.user_id " +
 				"WHERE t.task_id = ? AND t.delete_flg = '0'";
 
 		try (Connection conn = DBManager.getConnection();
@@ -138,24 +138,76 @@ public class TaskDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 指定したタスクのステータスのみを更新します。
 	 * @param taskId
 	 * @param statusCode
 	 */
 	public void updateStatus(int taskId, String statusCode) {
-	    String sql = "UPDATE t_task SET status_code = ?, update_datetime = CURRENT_TIMESTAMP WHERE task_id = ?";
+		String sql = "UPDATE t_task SET status_code = ?, update_datetime = CURRENT_TIMESTAMP WHERE task_id = ?";
 
-	    try (Connection conn = DBManager.getConnection();
-	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	        
-	        pstmt.setString(1, statusCode);
-	        pstmt.setInt(2, taskId);
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-	        pstmt.executeUpdate();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+			pstmt.setString(1, statusCode);
+			pstmt.setInt(2, taskId);
+
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+
+	/**
+	 * 	ユーザーIDを指定して、そのユーザーが担当しているタスクを全件取得するメソッド
+	 * @param searchUserId
+	 * @return List<TaskBean>
+	 */
+	public List<TaskBean> findTasks(String searchUserId) {
+		List<TaskBean> list = new ArrayList<>();
+		StringBuilder sql = new StringBuilder(
+				"SELECT t.*, u.user_name, c.category_name, s.status_name " +
+						"FROM t_task t " +
+						"JOIN m_user u ON t.user_id = u.user_id " +
+						"JOIN m_category c ON t.category_id = c.category_id " +
+						"JOIN m_status s ON t.status_code = s.status_code " +
+						"WHERE t.delete_flg = '0' ");
+
+		if (searchUserId != null && searchUserId != "") {
+			sql.append("AND t.user_id = ? ");
+		}
+
+		sql.append("ORDER BY t.status_code ASC, t.limit_date ASC");
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+			if (searchUserId != null && searchUserId != "") {
+				pstmt.setString(1, searchUserId);
+			}
+
+			// ★ここから追加：結果セットを取得してループでリストに追加する
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					TaskBean bean = new TaskBean();
+					bean.setTaskId(rs.getInt("task_id"));
+					bean.setTaskName(rs.getString("task_name"));
+					bean.setLimitDate(rs.getDate("limit_date"));
+					bean.setUserId(rs.getString("user_id")); // String型の場合は rs.getString
+					bean.setUserName(rs.getString("user_name"));
+					bean.setCategoryId(rs.getInt("category_id"));
+					bean.setCategoryName(rs.getString("category_name"));
+					bean.setStatusCode(rs.getString("status_code"));
+					bean.setStatusName(rs.getString("status_name"));
+
+					list.add(bean);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

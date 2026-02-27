@@ -39,6 +39,44 @@
         <div class="bg-white p-4 shadow-sm rounded">
 		    <h5 class="mb-4">タスク一覧</h5>
 		    
+		    <!-- ★追加：検索フォーム -->
+		    <div class="card mb-4 border-0 shadow-sm">
+			    <div class="card-body bg-light rounded">
+			        <form action="TaskListServlet" method="get" class="row g-3 align-items-end">
+			            <div class="col-md-3">
+			                <label class="form-label small fw-bold">担当者</label>
+			                <select name="searchUser" class="form-select">
+			                    <option value="">すべて表示</option>
+			                    <c:forEach var="user" items="${userList}">
+			                        <option value="${user.userId}" ${user.userId == selectedUserId ? 'selected' : ''}>
+			                            ${user.userName}
+			                        </option>
+			                    </c:forEach>
+			                </select>
+			            </div>
+			
+			            <div class="col-md-3">
+			                <label class="form-label small fw-bold">カテゴリ</label>
+			                <select class="form-select" disabled>
+			                    <option>準備中...</option>
+			                </select>
+			            </div>
+			            
+			            <div class="col-md-2">
+						    <button type="submit" class="btn btn-primary w-100">
+						        <i class="bi bi-search"></i> 検索
+						    </button>
+						</div>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-outline-secondary w-100" onclick="resetForm()">
+							    クリア
+							</button>
+			            </div>
+			            
+			        </form>
+			    </div>
+			</div>
+		    
 		    <div class="table-wrapper">
 			    <table class="table table-hover">
 			        <thead class="table-light">
@@ -162,6 +200,15 @@
     </main>
 
     <%@ include file="/common/footer.jsp" %>
+    
+    <script>
+		function resetForm() {
+		    // セレクトボックスを一番上の「すべて表示」にする
+		    document.querySelector('select[name="searchUser"]').selectedIndex = 0;
+		    // そのまま検索を実行して一覧を更新する
+		    document.querySelector('form').submit();
+		}
+	</script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
