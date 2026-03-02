@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+/* 全画面共通 */
+body {
+	padding-top: 70px;
+	padding-bottom: 60px;
+	background-color: #f4f7f9;
+}
+
+/* 一覧画面 (taskList.jsp) */
+.table-wrapper {
+	max-height: 80vh;
+	background: white;
+	overflow-y: auto;
+	border: 1px solid #dee2e6;
+	border-radius: 4px;
+}
+
+.table {
+	font-size: 0.9rem;
+}
+
+/* 編集・登録画面 (taskEdit.jsp, taskRegister.jsp) */
+main.container-flex {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-label {
+	margin-bottom: 0.25rem;
+	font-size: 0.9rem;
+}
+
+/* ログイン画面 (login.jsp) */
+.login-container {
+	max-width: 400px;
+	margin-top: 100px;
+}

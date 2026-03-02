@@ -6,38 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>タスク一覧 | コンビニ管理</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<style>
-/* 固定ヘッダー・フッターにコンテンツが被らないための調整 */
-body {
-	padding-top: 60px; /* ヘッダーの高さ分 */
-	padding-bottom: 60px; /* フッターの高さ分 */
-	background-color: #f4f7f9;
-	/* 画面中央に配置したい場合は flex を活用 */
-     display: flex;
-     flex-direction: column;
-     min-height: 100vh;
-}
-/* mainタグを画面いっぱいに広げて中央寄せを可能にする */
-main.container {
-    flex: 1;
-    display: flex;
-    align-items: center; /* 垂直方向の中央寄せ */
-    justify-content: center; /* 水平方向の中央寄せ */
-}
-.card-body {
-	margin-top: 0 !important; /* 個別のマージンをリセット */
-	margin-bottom: 0 !important;
-/* 	padding: 1.25rem; /* 余白を少し詰め気味に */ */
-}
-
-.form-label {
-	margin-bottom: 0.25rem; /* ラベルと入力欄の間隔を詰める */
-	font-size: 0.9rem;
-}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body class="bg-light">
 

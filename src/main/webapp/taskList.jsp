@@ -6,43 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>タスク一覧 | コンビニ管理</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<style>
-/* 固定ヘッダー・フッターにコンテンツが被らないための調整 */
-body {
-	padding-top: 60px; /* ヘッダーの高さ分 */
-	background-color: #f4f7f9;
-/* 	padding-bottom: 60px; /* フッターの高さ分 */ */
-}
-
-/* ★追加：テーブルを囲むコンテナに高さを指定し、スクロールを許可する */
-.table-wrapper {
-	max-height: 80vh; /* 画面の高さの70%を表示エリアにする（調整可） */
-	background: white;
- 	overflow-y: auto; /* 縦スクロールを有効にする */ 
- 	border: 1px solid #dee2e6; 
- 	 	border-radius: 4px; 
-}
-
-  /* テーブルの文字を少し小さくして情報量を増やす */
-  .table {
-      font-size: 0.9rem;
-  }
-  .badge {
-      font-weight: 500;
-  }
-
-/* ★追加：見出し行を固定する */
-.table-wrapper thead th {
-	position: sticky;
-	top: 0;
-	z-index: 10;
-	background-color: #f8f9fa !important; /* 背景色（table-lightと合わせる） */
-	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1); /* 境界を分かりやすくする影 */
-}
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body class="bg-light">
 
