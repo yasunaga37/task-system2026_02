@@ -210,4 +210,23 @@ public class TaskDAO {
 		return list;
 	}
 
+	/**
+	 * タスクを論理削除する
+	 * @param taskId 削除対象のタスクID
+	 */
+	public void delete(int taskId) {
+		// delete_flg を '1' に更新し、更新日時も現在時刻にする
+		String sql = "UPDATE t_task SET delete_flg = '1', update_datetime = NOW() WHERE task_id = ?";
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setInt(1, taskId);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 }
