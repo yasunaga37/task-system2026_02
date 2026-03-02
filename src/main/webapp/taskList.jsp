@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>タスク一覧 | コンビニ管理</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/task_list.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body class="bg-light">
 
@@ -16,9 +16,9 @@
 	<main class="container-fluid px-4">
 		<div class="bg-white p-3 shadow-sm rounded mb-3">
 			<div class="d-flex justify-content-between align-items-center mb-3">
-				<h4 class="mb-0">
+				<h6 class="mb-0">
 					<i class="bi bi-list-task"></i> タスク一覧
-				</h4>
+				</h6>
 			</div>
 
 			<form action="TaskListServlet" method="get" id="searchForm"

@@ -6,14 +6,14 @@
 		<meta charset="UTF-8">
 		<title>新規タスク登録 | コンビニ管理</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+		<<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	</head>
 <body class="bg-light">
 
 	<%@ include file="/common/header.jsp"%>
 
-	<main class="container">
-		<div class="container mt-5">
+	<main class="container main-center">
+		<div class="container py-0">
 		    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
 		        <div class="card-header bg-primary text-white">
 		            <h5 class="mb-0">新規タスク登録</h5>

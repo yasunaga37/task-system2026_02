@@ -7,13 +7,13 @@
 <meta charset="UTF-8">
 <title>タスク一覧 | コンビニ管理</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/task_edit.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body class="bg-light">
 
 	<%@ include file="/common/header.jsp"%>
 
-	<main class="container">
+	<main class="container main-center">
 		<div class="container py-4">
 			<div class="card shadow-sm mx-auto" style="max-width: 700px;">
 				<div class="card-header bg-success text-white">

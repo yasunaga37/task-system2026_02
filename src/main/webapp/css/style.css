@@ -1,13 +1,26 @@
 @charset "UTF-8";
 
-/* 全画面共通 */
+/* ==========================================================================
+   共通レイアウト
+   ========================================================================== */
 body {
 	padding-top: 70px;
 	padding-bottom: 60px;
 	background-color: #f4f7f9;
+	/* 編集・登録画面での中央寄せ対応のため flex を準備 */
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
-/* 一覧画面 (taskList.jsp) */
+main.container,
+main.container-fluid {
+	flex: 1;
+}
+
+/* ==========================================================================
+   一覧画面 (taskList.jsp)
+   ========================================================================== */
 .table-wrapper {
 	max-height: 80vh;
 	background: white;
@@ -18,11 +31,27 @@ body {
 
 .table {
 	font-size: 0.9rem;
+	margin-bottom: 0;
 }
 
-/* 編集・登録画面 (taskEdit.jsp, taskRegister.jsp) */
-main.container-flex {
-	flex: 1;
+/* 見出し行の固定 */
+.table-wrapper thead th {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background-color: #f8f9fa !important;
+	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
+}
+
+.badge {
+	font-weight: 500;
+}
+
+/* ==========================================================================
+   編集・登録・詳細画面 (taskEdit, taskRegister, taskDetail)
+   ========================================================================== */
+/* フォーム中央寄せ用のクラス（mainタグに付与） */
+.main-center {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -33,8 +62,10 @@ main.container-flex {
 	font-size: 0.9rem;
 }
 
-/* ログイン画面 (login.jsp) */
+/* ==========================================================================
+   ログイン画面 (login.jsp)
+   ========================================================================== */
 .login-container {
 	max-width: 400px;
-	margin-top: 100px;
+	margin-top: -30px;
 }
