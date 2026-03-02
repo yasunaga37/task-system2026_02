@@ -1,0 +1,7 @@
+@charset "UTF-8";
+/* 固定ヘッダー・フッターにコンテンツが被らないための調整 */
+body {
+	padding-top: 70px;
+	padding-bottom: 60px;
+	background-color: #f4f7f9;
+}
