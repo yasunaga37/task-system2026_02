@@ -51,6 +51,9 @@
 		            <button type="submit" class="btn btn-sm btn-primary text-nowrap">
 		                <i class="bi bi-search"></i> 検索
 		            </button>
+		            <button type="button" class="btn btn-sm btn-outline-secondary"
+						onclick="resetForm()">クリア
+					</button>
 		            
 		            <%-- 新規登録ボタンもこの列の右端に寄せる場合は ms-auto を使う --%>
 		            <a href="TaskRegisterServlet" class="btn btn-sm btn-success text-nowrap ms-auto">
@@ -195,16 +198,8 @@
 
 	<%@ include file="/common/footer.jsp"%>
 
-	<script>
-		function resetForm() {
-			// セレクトボックスを一番上の「すべて表示」にする
-			document.querySelector('select[name="searchUser"]').selectedIndex = 0;
-			// そのまま検索を実行して一覧を更新する
-			document.querySelector('form').submit();
-		}
-	</script>
+	<script src="${pageContext.request.contextPath}/js/script.js"></script>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
