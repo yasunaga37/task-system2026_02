@@ -60,8 +60,8 @@
 		    </div>
 		</div>
 
-		<div class="table-wrapper">
-			<table class="table table-hover">
+		<div class="table-wrapper shadow-sm">
+			<table class="table table-hover table-sm mb-0">
 				<thead class="table-light">
 					<tr>
 						<th>TaskID</th>
