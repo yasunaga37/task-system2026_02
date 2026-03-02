@@ -14,37 +14,50 @@
 	<%@ include file="/common/header.jsp"%>
 
 	<main class="container-fluid px-4">
-		<div class="bg-white p-3 shadow-sm rounded mb-3">
-			<div class="d-flex justify-content-between align-items-center mb-3">
-				<h6 class="mb-0">
-					<i class="bi bi-list-task"></i> タスク一覧
-				</h6>
-			</div>
-
-			<form action="TaskListServlet" method="get" id="searchForm"
-				class="row g-2 align-items-center">
-				<div class="col-auto">
-					<div class="input-group input-group-sm">
-						<span class="input-group-text bg-white">担当者</span> <select
-							name="searchUser" class="form-select" style="min-width: 150px;">
-							<option value="">すべて表示</option>
-							<c:forEach var="user" items="${userList}">
-								<option value="${user.userId}"
-									${user.userId == selectedUserId ? 'selected' : ''}>
-									${user.userName}</option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
-
-				<div class="col-auto ms-auto">
-					<button type="submit" class="btn btn-sm btn-primary px-3">
-						<i class="bi bi-search"></i> 検索
-					</button>
-					<button type="button" class="btn btn-sm btn-outline-secondary"
-						onclick="resetForm()">クリア</button>
-				</div>
-			</form>
+		<div class="bg-white p-2 shadow-sm rounded mb-2">
+		    <%-- d-flex で横並び、align-items-center で上下中央揃え、gap-3 で要素間の隙間を確保 --%>
+		    <div class="d-flex align-items-center gap-3">
+		        
+		        <%-- 1. タイトル（改行しないよう text-nowrap を追加） --%>
+		        <h4 class="mb-0 text-nowrap" style="font-size: 1.2rem;">
+		            <i class="bi bi-list-task"></i> タスク一覧
+		        </h4>
+		
+		        <%-- 2. 検索フォーム（flex-grow-1 で余ったスペースを使い切る） --%>
+		        <form action="TaskListServlet" method="get" id="searchForm" class="d-flex align-items-center gap-2 flex-grow-1">
+		            
+		            <div class="input-group input-group-sm" style="width: auto;">
+		                <span class="input-group-text bg-light">担当者</span>
+		                <select name="searchUser" class="form-select" style="min-width: 120px;">
+		                    <option value="">すべて</option>
+		                    <c:forEach var="user" items="${userList}">
+		                        <option value="${user.userId}" ${param.searchUser == user.userId ? 'selected' : ''}>
+		                            ${user.userName}
+		                        </option>
+		                    </c:forEach>
+		                </select>
+		            </div>
+		
+		            <div class="input-group input-group-sm" style="width: auto;">
+		                <span class="input-group-text bg-light">ステータス</span>
+		                <select name="searchStatus" class="form-select" style="min-width: 120px;">
+		                    <option value="">すべて</option>
+		                    <option value="00" ${param.searchStatus == '00' ? 'selected' : ''}>未着手</option>
+		                    <option value="10" ${param.searchStatus == '10' ? 'selected' : ''}>対応中</option>
+		                    <option value="90" ${param.searchStatus == '90' ? 'selected' : ''}>完了</option>
+		                </select>
+		            </div>
+		
+		            <button type="submit" class="btn btn-sm btn-primary text-nowrap">
+		                <i class="bi bi-search"></i> 検索
+		            </button>
+		            
+		            <%-- 新規登録ボタンもこの列の右端に寄せる場合は ms-auto を使う --%>
+		            <a href="TaskRegisterServlet" class="btn btn-sm btn-success text-nowrap ms-auto">
+		                <i class="bi bi-plus-lg"></i> 新規登録
+		            </a>
+		        </form>
+		    </div>
 		</div>
 
 		<div class="table-wrapper">

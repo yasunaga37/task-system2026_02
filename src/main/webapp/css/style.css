@@ -21,31 +21,30 @@ main.container-fluid {
 /* ==========================================================================
    一覧画面 (taskList.jsp)
    ========================================================================== */
-.table-wrapper {
-	max-height: 80vh;
-	background: white;
-	overflow-y: auto;
-	border: 1px solid #dee2e6;
-	border-radius: 4px;
-}
+   /* テーブル全体の行の高さを詰める */
+   .table-wrapper .table td,
+   .table-wrapper .table th {
+       padding-top: 0.3rem !important;    /* 上下の余白を縮小（デフォルトは0.5rem〜） */
+       padding-bottom: 0.3rem !important;
+       vertical-align: middle;            /* 中央揃えを維持 */
+       line-height: 1.2;                  /* 行間の高さを指定 */
+   }
 
-.table {
-	font-size: 0.9rem;
-	margin-bottom: 0;
-}
+   /* ボタンやバッジがあるセルの高さ調整 */
+   .table-wrapper .btn-sm {
+       padding-top: 0.1rem;
+       padding-bottom: 0.1rem;
+       font-size: 0.75rem;                /* ボタンも少し小さく */
+   }
 
-/* 見出し行の固定 */
-.table-wrapper thead th {
-	position: sticky;
-	top: 0;
-	z-index: 10;
-	background-color: #f8f9fa !important;
-	box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1);
-}
-
-.badge {
-	font-weight: 500;
-}
+   .table-wrapper .badge {
+       padding: 0.3em 0.6em;              /* バッジの余白も調整 */
+   }
+   
+   .table {
+   	font-size: 0.85rem;
+   	margin-bottom: 0;
+   }
 
 /* ==========================================================================
    編集・登録・詳細画面 (taskEdit, taskRegister, taskDetail)
