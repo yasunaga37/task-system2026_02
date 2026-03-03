@@ -61,12 +61,18 @@ function showEditForm(commentId, taskId) {
  * 片方のセレクトが変更されたら、もう片方をクリアして submit
  */
 function clearOtherAndSubmit(changed) {
+	const category = document.getElementById('searchCategory');
     const user = document.getElementById('searchUser');
     const status = document.getElementById('searchStatus');
 
-    if (changed === 'user') {
-        if (status) status.selectedIndex = 0;
+	if (changed === 'category') {
+	    if (status) status.selectedIndex = 0;
+		if (user) user.selectedIndex = 0;
+	} else if (changed === 'user') {
+		if (category) category.selectedIndex = 0;
+        if (status) status.selectedIndex = 0;		
     } else if (changed === 'status') {
+		if (category) category.selectedIndex = 0;
         if (user) user.selectedIndex = 0;
     }
 

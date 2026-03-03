@@ -27,6 +27,19 @@
 		        <form action="TaskListServlet" method="get" id="searchForm" class="d-flex align-items-center gap-2 flex-grow-1">
 		            
 		            <div class="input-group input-group-sm" style="width: auto;">
+                        <span class="input-group-text bg-light">カテゴリ</span>
+                        <select name="searchCategory" id="searchCategory" class="form-select" style="min-width: 120px;"
+                            onchange="clearOtherAndSubmit('category')">
+                            <option value="">すべて</option>
+                            <c:forEach var="category" items="${categoryList}">
+                                <option value="${category.categoryId}" ${param.searchCategory == category.categoryId ? 'selected' : ''}>
+                                    ${category.categoryName}
+                                </option>
+                            </c:forEach>
+                         </select>
+		            	</div>
+		            
+		            <div class="input-group input-group-sm" style="width: auto;">
 		                <span class="input-group-text bg-light">担当者</span>
 		                <select name="searchUser" id="searchUser" class="form-select" style="min-width: 120px;"
 					        onchange="clearOtherAndSubmit('user')">
