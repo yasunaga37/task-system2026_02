@@ -28,6 +28,7 @@
 			</c:if>
 		</div>
 
+		<%---------------- ここからタスク詳細欄の開始 ------------------%>
 		<div class="card mb-4 shadow-sm">
 			<div 	class="card-header bg-dark text-white d-flex justify-content-between">
 				<span>タスク詳細 #${task.taskId}</span> 
@@ -72,7 +73,9 @@
 				<div class="card-text border p-3 bg-light rounded" style="white-space: pre-wrap;">${task.memo}</div>
 			</div>
 		</div>
+		<%---------------- ここまででタスク詳細欄の終わり ------------------%>
 
+		<%---------------- ここからコメント・進捗報告欄の始まり ------------------%>
 		<div class="card shadow-sm">
 			<div class="card-header bg-light fw-bold">コメント・進捗報告</div>
 			<div class="card-body">
@@ -86,18 +89,19 @@
 						</div>
 
 						<%-- コメント本文：IDを付与してJSから操作可能にする --%>
-						<p class="mb-1" id="comment-text-${comment.commentId}">${comment.commentBody}</p>
+						<p class="mb-1" id="comment-text-${comment.commentId}">${comment.commentId}&nbsp;&nbsp;${comment.commentBody}</p>
 
-						<%-- アクションボタン（返信・編集・削除） --%>
+						<%-- アクションボタン（返信）を表示する --%>
 						<div class="d-flex gap-2">
 							<button class="btn btn-sm btn-link p-0 text-decoration-none"
 								onclick="toggleReplyForm(${comment.commentId}, '${comment.userName}')">返信</button>
 
+							<%-- もしこのコメント記載者が現在のログインユーザーだったらアクションボタン（編集・削除）も表示する --%>
 							<c:if test="${loginUser.userId == comment.userId}">
 								<span class="text-muted">|</span>
 								<button
 									class="btn btn-sm btn-link p-0 text-decoration-none text-secondary"
-									onclick="showEditForm(${comment.commentId})">編集</button>
+									onclick="showEditForm('${comment.commentId}', '${task.taskId}')">編集</button>
 
 								<form action="CommentDeleteServlet" method="post"
 									onsubmit="return confirm('コメントを削除しますか？');"
@@ -125,46 +129,8 @@
 						</div>
 					</div>
 				</c:forEach>
-
-				<script>
-				// 引数に userName を追加
-				// 返信フォームの表示・非表示を切り替える関数
-				function toggleReplyForm(id, userName) {
-				    const form = document.getElementById('replyForm-' + id);
-				    const input = document.getElementById('replyInput-' + id);
-				    
-				    if (form.style.display === 'none') {
-				        form.style.display = 'block';
-				        // 入力欄が空の場合だけ、宛名をセットする
-				        if (input.value === '') {
-				            input.value = '@' + userName + ' 様 ';
-				        }
-				        input.focus(); // すぐに打ち込めるようにフォーカスを当てる
-				    } else {
-				        form.style.display = 'none';
-				    }
-				}
-
-				// 編集フォームを表示する関数
-				function showEditForm(commentId) {
-				    const textElement = document.getElementById('comment-text-' + commentId);
-				    const currentText = textElement.innerText;
-				    
-				    // ${commentId} の前に \ を付けて、JSPの処理対象から外します
-				    textElement.innerHTML = `
-				        <form action="CommentUpdateServlet" method="post" class="mt-2">
-				            <input type="hidden" name="commentId" value="\${commentId}">
-				            <input type="hidden" name="taskId" value="${task.taskId}">
-				            <div class="input-group">
-				                <input type="text" name="commentBody" class="form-control form-control-sm" value="\${currentText}">
-				                <button class="btn btn-sm btn-primary" type="submit">更新</button>
-				                <button class="btn btn-sm btn-outline-secondary" type="button" onclick="location.reload()">キャンセル</button>
-				            </div>
-				        </form>
-				    `;
-			    }	
-				</script>
-
+				
+				<%-- 進捗報告・コメント入力フォーム --%>
 				<form action="CommentRegisterServlet" method="post" class="mt-4">
 					<input type="hidden" name="taskId" value="${task.taskId}">
 					<div class="mb-3">
@@ -177,9 +143,12 @@
 				</form>
 			</div>
 		</div>
+		<%---------------- ここまででコメント・進捗報告欄の終わり ------------------%>
 	</main>
 
 	<%@ include file="/common/footer.jsp"%>
+	
+	<script src="${pageContext.request.contextPath}/js/script.js"></script><script src="${pageContext.request.contextPath}/js/script.js"></script>
 	
 	<script 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
