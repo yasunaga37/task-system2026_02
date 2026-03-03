@@ -104,6 +104,7 @@ public class TaskDAO {
 					task.setLimitDate(rs.getDate("limit_date"));
 					task.setStatusCode(rs.getString("status_code"));
 					task.setStatusName(rs.getString("status_name"));
+					task.setUserId(rs.getString("user_id"));
 					task.setMemo(rs.getString("memo"));
 					task.setUserName(rs.getString("user_name"));
 				}

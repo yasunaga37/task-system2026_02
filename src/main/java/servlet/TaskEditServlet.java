@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.TaskBean;
 import dao.CategoryDAO;
 import dao.TaskDAO;
+import dao.UserDAO;
 
 /**
  * Servlet implementation class TaskEditServlet
@@ -37,10 +38,12 @@ public class TaskEditServlet extends HttpServlet {
         
         TaskDAO taskDao = new TaskDAO();
         CategoryDAO categoryDao = new CategoryDAO();
+        UserDAO userDao = new UserDAO();
         
         // 編集対象のタスクと、選択肢用のカテゴリ一覧・ステータス一覧を取得
         request.setAttribute("task", taskDao.findByPk(taskId));
         request.setAttribute("categoryList", categoryDao.findAll());
+        request.setAttribute("userList", userDao.findAll()); // ここはステータスマスタのDAOに置き換える必要があります。
         // ステータスマスタ（m_status）を取得するDAOが未作成の場合は、
         // 簡易的に直接リストを送るか、StatusDAOを作成してください。
         

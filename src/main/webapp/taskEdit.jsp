@@ -17,7 +17,7 @@
 		<div class="container py-4">
 			<div class="card shadow-sm mx-auto" style="max-width: 700px;">
 				<div class="card-header bg-success text-white">
-					<h5 class="mb-0">タスクの編集</h5>
+					<h5 class="mb-0">タスクの編集</h5>					
 				</div>
 				<div class="card-body">
 					<form action="TaskEditServlet" method="post" id="editForm">
@@ -76,14 +76,17 @@
 						<%-- ボタンエリア（先ほどの削除ボタンを含む） --%>
 						<div class="pt-2 border-top">
 							<div class="d-flex justify-content-between align-items-center">
-								<div>
+								<div>									
 									<a href="TaskDetailServlet?taskId=${task.taskId}"
 										class="btn btn-sm btn-outline-secondary me-2">キャンセル</a>
 									<button type="submit" class="btn btn-sm btn-success px-4">更新保存</button>
 								</div>
 					</form>
 					<%-- 編集フォーム終了 --%>
-
+					<div>
+						<a href="TaskDetailServlet?taskId=${task.taskId}"
+										class="btn btn-sm btn-outline-primary">タスク詳細</a> 
+					</div>
 					<%-- 削除フォーム --%>
 					<form action="TaskDeleteServlet" method="post"
 						onsubmit="return confirm('削除しますか？');">
