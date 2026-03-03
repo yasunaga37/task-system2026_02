@@ -9,6 +9,7 @@ import java.util.List;
 
 import bean.StatusBean;
 
+
 /**
  * status_mstテーブルに対するデータアクセスオブジェクト
  */
