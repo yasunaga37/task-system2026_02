@@ -202,8 +202,8 @@
 									${task.statusName} </span>
 							</td>
 							<td><a href="TaskDetailServlet?taskId=${task.taskId}"
-								class="btn btn-sm btn-outline-primary">詳細</a> <a
-								href="TaskEditServlet?taskId=${task.taskId}"
+								class="btn btn-sm btn-outline-primary">詳細</a> 
+								<a href="TaskEditServlet?taskId=${task.taskId}"
 								class="btn btn-sm btn-outline-primary">編集</a></td>
 						</tr>
 					</c:forEach>

@@ -6,8 +6,8 @@ import java.io.Serializable;
  * ステータス情報を保持するBean
  */
 public class StatusBean implements Serializable {
-	private String statusCode; // ステータスコード (例: 00, 10, 90)
-	private String statusName; // ステータス名 (例: 未着手, 進行中, 完了)
+	private String statusCode; // ステータスコード (例: 00, 10, 50, 90)
+	private String statusName; // ステータス名 (例: 未着手, 確認中, 対応中, 完了)
 
 	public StatusBean() {
 	}

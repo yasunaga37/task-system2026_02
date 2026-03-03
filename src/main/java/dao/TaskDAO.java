@@ -158,7 +158,7 @@ public class TaskDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 	ユーザーIDを指定して、そのユーザーが担当しているタスクを全件取得するメソッド
 	 * @param searchUserId
@@ -209,22 +209,22 @@ public class TaskDAO {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * ステータスコードを条件にタスクを取得する
 	 * @param searchStatusCode 検索するステータスコード
 	 * @return タスクのリスト
 	 */
-	public List<TaskBean>  findByStatusCode(String searchStatusCode) {
+	public List<TaskBean> findByStatusCode(String searchStatusCode) {
 		List<TaskBean> list = new ArrayList<>();
-		
+
 		StringBuilder sql = new StringBuilder("SELECT t.*, c.category_name, s.status_name, u.user_name " +
 				"FROM t_task t " +
 				"JOIN m_category c ON t.category_id = c.category_id " +
 				"JOIN m_status s ON t.status_code = s.status_code " +
 				"JOIN m_user u ON t.user_id = u.user_id " +
 				"WHERE t.delete_flg = '0' ");
-		
+
 		if (searchStatusCode != null && !searchStatusCode.isEmpty()) {
 			sql.append("AND t.status_code = ? ");
 		}
@@ -254,13 +254,13 @@ public class TaskDAO {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * カテゴリIDを条件にタスクを取得する
 	 * @param categoryId 検索するカテゴリID
 	 * @return タスクのリスト
 	 */
-	public List<TaskBean>  findByCategoryId(int categoryId) {
+	public List<TaskBean> findByCategoryId(int categoryId) {
 		List<TaskBean> list = new ArrayList<>();
 		StringBuilder sql = new StringBuilder("SELECT t.*, c.category_name, s.status_name, u.user_name " +
 				"FROM t_task t " +
@@ -268,19 +268,19 @@ public class TaskDAO {
 				"JOIN m_status s ON t.status_code = s.status_code " +
 				"JOIN m_user u ON t.user_id = u.user_id " +
 				"WHERE t.delete_flg = '0' ");
-		
+
 		if (categoryId > 0) {
 			sql.append("AND t.category_id = ? ");
 		}
 		sql.append("ORDER BY t.status_code ASC, t.limit_date ASC");
-		
-//		String sql = "SELECT t.*, c.category_name, s.status_name, u.user_name " +
-//				"FROM t_task t " +
-//				"JOIN m_category c ON t.category_id = c.category_id " +
-//				"JOIN m_status s ON t.status_code = s.status_code " +
-//				"JOIN m_user u ON t.user_id = u.user_id " +
-//				"WHERE t.delete_flg = '0' AND t.category_id = ? " + // カテゴリIDで絞り込み
-//				"ORDER BY t.status_code ASC, t.limit_date ASC";
+
+		//		String sql = "SELECT t.*, c.category_name, s.status_name, u.user_name " +
+		//				"FROM t_task t " +
+		//				"JOIN m_category c ON t.category_id = c.category_id " +
+		//				"JOIN m_status s ON t.status_code = s.status_code " +
+		//				"JOIN m_user u ON t.user_id = u.user_id " +
+		//				"WHERE t.delete_flg = '0' AND t.category_id = ? " + // カテゴリIDで絞り込み
+		//				"ORDER BY t.status_code ASC, t.limit_date ASC";
 
 		try (Connection conn = DBManager.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
@@ -307,7 +307,6 @@ public class TaskDAO {
 		return list;
 	}
 
-
 	/**
 	 * タスクを論理削除する
 	 * @param taskId 削除対象のタスクID
@@ -325,6 +324,67 @@ public class TaskDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * 複数の条件を組み合わせてタスクを取得するメソッド
+	 * @param categoryId カテゴリID（nullや0の場合は条件に含めない）
+	 * @param userId ユーザーID（nullや空文字の場合は条件に含めない）
+	 * @param statusCode ステータスコード（nullや空文字の場合は条件に含めない）
+	 * @return 条件に合致するタスクのリスト
+	 */
+	public List<TaskBean> findByConditions(Integer categoryId, String userId, String statusCode) {
+		List<TaskBean> list = new ArrayList<>();
+		StringBuilder sql = new StringBuilder("SELECT t.*, c.category_name, s.status_name, u.user_name " +
+				"FROM t_task t " +
+				"JOIN m_category c ON t.category_id = c.category_id " +
+				"JOIN m_status s ON t.status_code = s.status_code " +
+				"JOIN m_user u ON t.user_id = u.user_id " +
+				"WHERE t.delete_flg = '0'");
+
+		List<Object> params = new ArrayList<>();
+
+		if (categoryId != null && categoryId > 0) {
+			sql.append(" AND t.category_id = ?");
+			params.add(categoryId);
+		}
+		if (userId != null && !userId.isEmpty()) {
+			sql.append(" AND t.user_id = ?");
+			params.add(userId);
+		}
+		if (statusCode != null && !statusCode.isEmpty()) {
+			sql.append(" AND t.status_code = ?");
+			params.add(statusCode);
+		}
+
+		sql.append(" ORDER BY t.status_code ASC, t.limit_date ASC");
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+			for (int i = 0; i < params.size(); i++) {
+				pstmt.setObject(i + 1, params.get(i));
+			}
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					TaskBean task = new TaskBean();
+					task.setTaskId(rs.getInt("task_id"));
+					task.setTaskName(rs.getString("task_name"));
+					task.setCategoryId(rs.getInt("category_id"));
+					task.setCategoryName(rs.getString("category_name"));
+					task.setUserName(rs.getString("user_name"));
+					task.setLimitDate(rs.getDate("limit_date"));
+					task.setStatusCode(rs.getString("status_code"));
+					task.setStatusName(rs.getString("status_name"));
+					list.add(task);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
 	}
 
 }
