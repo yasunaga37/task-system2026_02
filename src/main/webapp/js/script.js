@@ -56,3 +56,20 @@ function showEditForm(commentId, taskId) {
         </form>
     `;
 }
+
+/**
+ * 片方のセレクトが変更されたら、もう片方をクリアして submit
+ */
+function clearOtherAndSubmit(changed) {
+    const user = document.getElementById('searchUser');
+    const status = document.getElementById('searchStatus');
+
+    if (changed === 'user') {
+        if (status) status.selectedIndex = 0;
+    } else if (changed === 'status') {
+        if (user) user.selectedIndex = 0;
+    }
+
+    document.getElementById('searchForm').submit();
+}
+

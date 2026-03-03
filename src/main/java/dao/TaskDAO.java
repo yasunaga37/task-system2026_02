@@ -158,13 +158,13 @@ public class TaskDAO {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/**
 	 * 	ユーザーIDを指定して、そのユーザーが担当しているタスクを全件取得するメソッド
 	 * @param searchUserId
 	 * @return List<TaskBean>
 	 */
-	public List<TaskBean> findTasks(String searchUserId) {
+	public List<TaskBean> findByUserId(String searchUserId) {
 		List<TaskBean> list = new ArrayList<>();
 		StringBuilder sql = new StringBuilder(
 				"SELECT t.*, u.user_name, c.category_name, s.status_name " +
@@ -202,6 +202,51 @@ public class TaskDAO {
 					bean.setStatusName(rs.getString("status_name"));
 
 					list.add(bean);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	/**
+	 * ステータスコードを条件にタスクを取得する
+	 * @param searchStatusCode 検索するステータスコード
+	 * @return タスクのリスト
+	 */
+	public List<TaskBean>  findByStatusCode(String searchStatusCode) {
+		List<TaskBean> list = new ArrayList<>();
+		
+		StringBuilder sql = new StringBuilder("SELECT t.*, c.category_name, s.status_name, u.user_name " +
+				"FROM t_task t " +
+				"JOIN m_category c ON t.category_id = c.category_id " +
+				"JOIN m_status s ON t.status_code = s.status_code " +
+				"JOIN m_user u ON t.user_id = u.user_id " +
+				"WHERE t.delete_flg = '0' ");
+		
+		if (searchStatusCode != null && !searchStatusCode.isEmpty()) {
+			sql.append("AND t.status_code = ? ");
+		}
+		sql.append("ORDER BY t.status_code ASC, t.limit_date ASC");
+
+		try (Connection conn = DBManager.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
+
+			pstmt.setString(1, searchStatusCode); // ステータスコードをセット
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					TaskBean task = new TaskBean();
+					task.setTaskId(rs.getInt("task_id"));
+					task.setTaskName(rs.getString("task_name"));
+					task.setCategoryId(rs.getInt("category_id"));
+					task.setCategoryName(rs.getString("category_name"));
+					task.setUserName(rs.getString("user_name"));
+					task.setLimitDate(rs.getDate("limit_date"));
+					task.setStatusCode(rs.getString("status_code"));
+					task.setStatusName(rs.getString("status_name"));
+					list.add(task);
 				}
 			}
 		} catch (SQLException e) {

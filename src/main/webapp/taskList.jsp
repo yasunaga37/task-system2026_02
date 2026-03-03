@@ -28,7 +28,8 @@
 		            
 		            <div class="input-group input-group-sm" style="width: auto;">
 		                <span class="input-group-text bg-light">担当者</span>
-		                <select name="searchUser" class="form-select" style="min-width: 120px;">
+		                <select name="searchUser" id="searchUser" class="form-select" style="min-width: 120px;"
+					        onchange="clearOtherAndSubmit('user')">
 		                    <option value="">すべて</option>
 		                    <c:forEach var="user" items="${userList}">
 		                        <option value="${user.userId}" ${param.searchUser == user.userId ? 'selected' : ''}>
@@ -40,17 +41,20 @@
 		
 		            <div class="input-group input-group-sm" style="width: auto;">
 		                <span class="input-group-text bg-light">ステータス</span>
-		                <select name="searchStatus" class="form-select" style="min-width: 120px;">
-		                    <option value="">すべて</option>
-		                    <option value="00" ${param.searchStatus == '00' ? 'selected' : ''}>未着手</option>
-		                    <option value="10" ${param.searchStatus == '10' ? 'selected' : ''}>対応中</option>
-		                    <option value="90" ${param.searchStatus == '90' ? 'selected' : ''}>完了</option>
-		                </select>
+		                <select name="searchStatus" id="searchStatus" class="form-select" onchange="clearOtherAndSubmit('status')">
+				            <option value="">すべて</option>
+				            <c:forEach var="status" items="${statusList}">
+				                <option value="${status.statusCode}" 
+				                    ${param.searchStatus == status.statusCode ? 'selected' : ''}>
+				                    ${status.statusName}
+				                </option>
+				            </c:forEach>
+				        </select>
 		            </div>
 		
-		            <button type="submit" class="btn btn-sm btn-primary text-nowrap">
-		                <i class="bi bi-search"></i> 検索
-		            </button>
+<!-- 		            <button type="submit" class="btn btn-sm btn-primary text-nowrap"> -->
+<!-- 		                <i class="bi bi-search"></i> 検索 -->
+<!-- 		            </button> -->
 		            <button type="button" class="btn btn-sm btn-outline-secondary"
 						onclick="resetForm()">クリア
 					</button>
