@@ -9,9 +9,7 @@
 		<<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	</head>
 <body class="bg-light">
-
 	<%@ include file="/common/header.jsp"%>
-
 	<main class="container main-center">
 		<div class="container py-0">
 		    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
