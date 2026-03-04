@@ -15,7 +15,7 @@
 	
 	<c:if test="${not empty flash}">
 	    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-	        ${flash}
+	        <i class="bi bi-check-circle-fill me-2"></i> ${flash}
 	        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	    </div>    
 	</c:if>

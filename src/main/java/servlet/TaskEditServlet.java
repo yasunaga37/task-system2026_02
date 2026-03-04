@@ -59,6 +59,7 @@ public class TaskEditServlet extends HttpServlet {
         task.setTaskId(Integer.parseInt(request.getParameter("taskId")));
         task.setTaskName(request.getParameter("taskName"));
         task.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+        task.setUserId(request.getParameter("userId"));
         task.setLimitDate(Date.valueOf(request.getParameter("limitDate")));
         task.setStatusCode(request.getParameter("statusCode"));
         task.setMemo(request.getParameter("memo"));

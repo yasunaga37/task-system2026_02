@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>タスク一覧 | コンビニ管理</title>
+	<title>タスク詳細 | コンビニ管理</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
@@ -17,9 +17,7 @@
 		<!-- 成功メッセージの表示 -->
 		<div class="container mt-3">
 			<c:if test="${not empty successMsg}">
-				<div
-					class="alert alert-success alert-dismissible fade show shadow-sm"
-					role="alert">
+				<div 	class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
 					<i class="bi bi-check-circle-fill me-2"></i> ${successMsg}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>

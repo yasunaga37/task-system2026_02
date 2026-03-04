@@ -121,7 +121,7 @@ public class TaskDAO {
 	 */
 	public void update(TaskBean task) {
 		String sql = "UPDATE t_task SET task_name = ?, category_id = ?, limit_date = ?, " +
-				"status_code = ?, memo = ?, update_datetime = CURRENT_TIMESTAMP " +
+				"user_id = ?, status_code = ?, memo = ?, update_datetime = CURRENT_TIMESTAMP " +
 				"WHERE task_id = ?";
 
 		try (Connection conn = DBManager.getConnection();
@@ -130,9 +130,10 @@ public class TaskDAO {
 			pstmt.setString(1, task.getTaskName());
 			pstmt.setInt(2, task.getCategoryId());
 			pstmt.setDate(3, task.getLimitDate());
-			pstmt.setString(4, task.getStatusCode());
-			pstmt.setString(5, task.getMemo());
-			pstmt.setInt(6, task.getTaskId());
+			pstmt.setString(4, task.getUserId());
+			pstmt.setString(5, task.getStatusCode());
+			pstmt.setString(6, task.getMemo());
+			pstmt.setInt(7, task.getTaskId());
 
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
