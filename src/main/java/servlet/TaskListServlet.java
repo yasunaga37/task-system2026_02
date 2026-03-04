@@ -69,19 +69,6 @@ public class TaskListServlet extends HttpServlet {
 		StatusDAO statusDao = new StatusDAO();
 		
 		// 絞り込み条件を引数に渡してタスク一覧を取得
-//		List<TaskBean> taskList = null;
-//		
-//		if (searchUserId == null && searchStatusCode == null && searchCategoryId > 0) {
-//		    taskList = taskDao.findByCategoryId(searchCategoryId);
-//		} else if (searchCategoryId > 0 && searchUserId != null && !searchUserId.isEmpty() && searchStatusCode != null && !searchStatusCode.isEmpty()) {
-//		    taskList = taskDao.findByCategoryId(searchCategoryId);
-//		} else if (searchUserId != null && !searchUserId.isEmpty() && searchStatusCode == null) {
-//		    taskList = taskDao.findByUserId(searchUserId);
-//		} else if (searchStatusCode != null && !searchStatusCode.isEmpty() && searchUserId == null) {
-//		    taskList = taskDao.findByStatusCode(searchStatusCode);
-//		} else {
-//		    taskList = taskDao.findAll();
-//		}
 		List<TaskBean> taskList = taskDao.findByConditions(
 			    searchCategoryId > 0 ? searchCategoryId : null,
 			    searchUserId,
@@ -96,6 +83,13 @@ public class TaskListServlet extends HttpServlet {
 		
 		// プルダウン表示用のステータスのリストを取得
 		List<StatusBean> statusList = statusDao.findAll(); 
+		
+		// フラッシュメッセージの取得と削除
+		String flash = (String) session.getAttribute("flash");
+		if (flash != null) {
+		    request.setAttribute("flash", flash);
+		    session.removeAttribute("flash");
+		}
 
 		// 4. JSPへ渡す
 		request.setAttribute("taskList", taskList);

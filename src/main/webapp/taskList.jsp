@@ -12,6 +12,13 @@
 <body class="bg-light">
 
 	<%@ include file="/common/header.jsp"%>
+	
+	<c:if test="${not empty flash}">
+	    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+	        ${flash}
+	        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>    
+	</c:if>
 
 	<main class="container-fluid px-4">
 		<div class="bg-white p-2 shadow-sm rounded mb-2">

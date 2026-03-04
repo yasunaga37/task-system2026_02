@@ -53,6 +53,8 @@ public class TaskDeleteServlet extends HttpServlet {
 			// 3. 論理削除の実行
 			TaskDAO dao = new TaskDAO();
 			dao.delete(taskId);
+			// 削除完了メッセージをセッションに保存
+			request.getSession().setAttribute("flash", "タスク#" + taskId + " を削除しました。");
 		}
 
 		// 4. 一覧画面へリダイレクト
