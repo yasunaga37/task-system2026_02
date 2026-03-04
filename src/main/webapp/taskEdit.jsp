@@ -88,8 +88,7 @@
 										class="btn btn-sm btn-outline-primary">タスク詳細</a> 
 					</div>
 					<%-- 削除フォーム --%>
-					<form action="TaskDeleteServlet" method="post"
-						onsubmit="return confirm('削除しますか？');">
+					<form action="TaskDeleteServlet" method="post" onsubmit="return confirm('削除しますか？');">
 						<input type="hidden" name="taskId" value="${task.taskId}">
 						<button type="submit"
 							class="btn btn-link btn-sm text-danger text-decoration-none">

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.CommentBean;
 import bean.TaskBean;
@@ -43,6 +44,14 @@ public class TaskDetailServlet extends HttpServlet {
         // コメント一覧の取得
         CommentDAO commentDao = new CommentDAO();
         List<CommentBean> commentList = commentDao.findByTaskId(taskId);
+        
+		// フラッシュメッセージの取得と削除
+        HttpSession session = request.getSession();
+		String flash = (String) session.getAttribute("flash");
+		if (flash != null) {
+		    request.setAttribute("successMsg", flash);
+		    session.removeAttribute("flash");
+		}
         
         request.setAttribute("task", task);
         request.setAttribute("commentList", commentList);

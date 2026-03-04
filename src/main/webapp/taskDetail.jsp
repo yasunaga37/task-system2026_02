@@ -17,9 +17,7 @@
 		<!-- 成功メッセージの表示 -->
 		<div class="container mt-3">
 			<c:if test="${not empty successMsg}">
-				<div
-					class="alert alert-success alert-dismissible fade show shadow-sm"
-					role="alert">
+				<div 	class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
 					<i class="bi bi-check-circle-fill me-2"></i> ${successMsg}
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
