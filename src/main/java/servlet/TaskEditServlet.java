@@ -66,6 +66,9 @@ public class TaskEditServlet extends HttpServlet {
 
         TaskDAO dao = new TaskDAO();
         dao.update(task);
+        
+		// 編集完了メッセージをセッションに保存
+		request.getSession().setAttribute("flash", "編集完了しました。");
 
         // 更新後は詳細画面へ戻る
         response.sendRedirect("TaskDetailServlet?taskId=" + task.getTaskId());

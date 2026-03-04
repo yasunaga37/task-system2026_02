@@ -12,6 +12,13 @@
 <body class="bg-light">
 
 	<%@ include file="/common/header.jsp"%>
+	
+	<c:if test="${not empty flash}">
+	    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+	        <i class="bi bi-check-circle-fill me-2"></i> ${flash}
+	        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	    </div>    
+	</c:if>
 
 	<main class="container main-center">
 		<div class="container py-4">
@@ -79,7 +86,8 @@
 								<div>									
 									<a href="TaskDetailServlet?taskId=${task.taskId}"
 										class="btn btn-sm btn-outline-secondary me-2">キャンセル</a>
-									<button type="submit" class="btn btn-sm btn-success px-4">更新保存</button>
+									<button type="submit" class="btn btn-sm btn-success px-4" 
+												onclick="return confirm('この内容で更新しますか？');">更新保存</button>
 								</div>
 					</form>
 					<%-- 編集フォーム終了 --%>
