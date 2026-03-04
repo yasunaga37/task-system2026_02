@@ -1,32 +1,52 @@
 @charset "UTF-8";
 
-/* ==========================================================================
+/* ===============================
    共通レイアウト
-   ========================================================================== */
+   ================================ */
 .navbar {
-	border-bottom: 2px solid #90caf9;
+	border-bottom: 1px solid #90caf9;
 	/* 少し濃い水色で区切りを強調 */
 }
 
-body {
-  margin: 0;
-  padding-top: 0px;
-  padding-bottom: 60px;
-  background-color: #f4f7f9;
-  /* 編集・登録画面での中央寄せ対応のため flex を準備 */
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+.footer {
+    background-color: #e3f2fd;
+    /* 明るいグレーでフッターを区切る */
+    border-top: 2px solid #90caf9;
+    /* 上部に薄い線を追加 */
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+    /* フッターテキストの色を少し薄く */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
+
+body {
+	padding-top: 70px;
+	padding-bottom: 60px;
+	background-color: #f4f7f9;
+	/* 編集・登録画面での中央寄せ対応のため flex を準備 */
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/*html,
+body {
+	margin: 0;
+	padding: 0;
+}*/
 
 main.container,
 main.container-fluid {
 	flex: 1;
 }
 
-/* ==========================================================================
+/* ===============================
    一覧画面 (taskList.jsp)
-   ========================================================================== */
+   ================================ */
 /* テーブル全体の行の高さを詰める */
 .table-wrapper .table td,
 .table-wrapper .table th {
@@ -79,9 +99,9 @@ main.container-fluid {
 	/* 境界を分かりやすくする影 */
 }
 
-/* ==========================================================================
+/* ===============================
    編集・登録・詳細画面 (taskEdit, taskRegister, taskDetail)
-   ========================================================================== */
+   ============================== = */
 /* フォーム中央寄せ用のクラス（mainタグに付与） */
 .main-center {
 	display: flex;
@@ -94,9 +114,9 @@ main.container-fluid {
 	font-size: 0.9rem;
 }
 
-/* ==========================================================================
+/* ===============================
    ログイン画面 (login.jsp)
-   ========================================================================== */
+   ============================= == */
 .login-container {
 	max-width: 400px;
 	margin-top: -30px;

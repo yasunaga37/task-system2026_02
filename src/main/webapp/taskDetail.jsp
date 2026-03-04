@@ -28,7 +28,7 @@
 
 		<%---------------- ここからタスク詳細欄の開始 ------------------%>
 		<div class="card mb-4 shadow-sm">
-			<div 	class="card-header bg-dark text-white d-flex justify-content-between">
+			<div 	class="card-header bg-success text-white d-flex justify-content-between">
 				<span>タスク詳細 #${task.taskId}</span> 
 				<span class="badge ${task.categoryColorClass}">${task.categoryName}</span>
 			</div>
@@ -136,7 +136,7 @@
 							placeholder="進捗報告やコメントを入力してください" ></textarea>
 					</div>
 					<div class="text-end">
-						<button type="submit" class="btn btn-primary px-4"><i class="bi bi-send"></i> 送信する</button>
+						<button type="submit" class="btn btn-success px-4"><i class="bi bi-send"></i> 送信する</button>
 					</div>
 				</form>
 			</div>
