@@ -68,9 +68,12 @@ public class TaskRegisterServlet extends HttpServlet {
         // 3. DAOで保存
         TaskDAO dao = new TaskDAO();
         dao.insert(task);
+        
+		// 登録完了メッセージをセッションに保存
+		request.getSession().setAttribute("flash", "新規タスクを登録しました。");
 
-        // 4. 一覧へリダイレクト
-        response.sendRedirect("TaskListServlet");
+        // 4. タスク詳細サーブレットへリダイレクト
+        response.sendRedirect("TaskDetailServlet?taskId=" + task.getTaskId());
 	}
 
 }

@@ -47,7 +47,7 @@
 		
 		                <div class="d-flex justify-content-between">
 		                    <a href="TaskListServlet" class="btn btn-outline-secondary">キャンセル</a>
-		                    <button type="submit" class="btn btn-primary px-4">登録する</button>
+		                    <button type="submit" class="btn btn-primary px-4" onclick="return confirm('この内容で登録しますか？');" >登録する</button>
 		                </div>
 		            </form>
 		        </div>

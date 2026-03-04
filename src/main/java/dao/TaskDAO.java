@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,11 +58,10 @@ public class TaskDAO {
 	 */
 	public void insert(TaskBean task) {
 		String sql = "INSERT INTO t_task (task_name, category_id, limit_date, user_id, status_code, memo, delete_flg) "
-				+
-				"VALUES (?, ?, ?, ?, ?, ?, '0')";
+				+ 	"VALUES (?, ?, ?, ?, ?, ?, '0')";
 
 		try (Connection conn = DBManager.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				PreparedStatement pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
 
 			pstmt.setString(1, task.getTaskName());
 			pstmt.setInt(2, task.getCategoryId());
@@ -71,6 +71,13 @@ public class TaskDAO {
 			pstmt.setString(6, task.getMemo());
 
 			pstmt.executeUpdate();
+			
+			// 自動採番されたIDを取得
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+			    task.setTaskId(rs.getInt(1));
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
