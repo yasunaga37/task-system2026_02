@@ -67,12 +67,17 @@ public class TaskListServlet extends HttpServlet {
 		CategoryDAO categoryDao = new CategoryDAO();
 		UserDAO userDao = new UserDAO();
 		StatusDAO statusDao = new StatusDAO();
+		String sort = request.getParameter("sort");
+		if (sort == null || sort.isEmpty()) {
+		    sort = "default"; // デフォルトのソート順
+		}
 		
 		// 絞り込み条件を引数に渡してタスク一覧を取得
 		List<TaskBean> taskList = taskDao.findByConditions(
 			    searchCategoryId > 0 ? searchCategoryId : null,
 			    searchUserId,
-			    searchStatusCode
+			    searchStatusCode, 
+			    sort
 			);
 		
 		// カテゴリのリストを取得
@@ -90,14 +95,13 @@ public class TaskListServlet extends HttpServlet {
 		    request.setAttribute("flash", flash);
 		    session.removeAttribute("flash");
 		}
-
+		
 		// 4. JSPへ渡す
 		request.setAttribute("taskList", taskList);
 		request.setAttribute("categoryList", categoryList); // プルダウン用		
 		request.setAttribute("userList", userList); // プルダウン用
 		request.setAttribute("statusList", statusList); // プルダウン用
-//		request.setAttribute("selectedUserId", searchUserId); // 検索条件の保持用
-//		request.setAttribute("selectedStatusCode", searchStatusCode); // 検索条件の保持用
+		request.setAttribute("currentSort", sort); // 現在のソート順をJSPに渡す
 
 		request.getRequestDispatcher("taskList.jsp").forward(request, response);
 	}

@@ -92,7 +92,15 @@
 				<thead class="table-light">
 					<tr>
 						<th>TaskID</th>
-						<th>期限</th>
+						<th class="text-nowrap">
+						  期限
+						  <a href="TaskListServlet?searchCategory=${param.searchCategory}&searchUser=${param.searchUser}&searchStatus=${param.searchStatus}&sort=limitDateAsc">
+						    <i class="bi bi-sort-up ${currentSort == 'limitDateAsc' ? 'text-primary' : 'text-black-50'}"></i>
+						  </a>
+						  <a href="TaskListServlet?searchCategory=${param.searchCategory}&searchUser=${param.searchUser}&searchStatus=${param.searchStatus}&sort=limitDateDesc">
+						    <i class="bi bi-sort-down ${currentSort == 'limitDateDesc' ? 'text-primary' : 'text-black-50'}"></i>
+						  </a>
+						</th>
 						<th>カテゴリ</th>
 						<th>担当者</th>
 						<th>タスク名</th>
