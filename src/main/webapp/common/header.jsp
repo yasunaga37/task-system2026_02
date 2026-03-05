@@ -17,7 +17,7 @@
 			<div class="d-flex align-items-center">
 				<span class="navbar-text text-secondary me-3"> <i
 					class="bi bi-person-circle"></i> ${loginUser.userName} 様
-				</span> <a href="LogoutServlet" class="btn btn-outline-primary btn-sm">ログアウト</a>
+				</span> <a href="LogoutServlet" class="btn btn-outline-primary btn-sm" onclick="return confirm('ログアウトしますか？');">ログアウト</a>
 			</div>
 		</div>
 	</div>

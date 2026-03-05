@@ -22,7 +22,7 @@
 	<main class="container">
 		<div class="container mt-5">
 		    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
-		        <div class="card-header bg-primary text-white">
+		        <div class="card-header bg-success text-white">
 		            <h5 class="mb-0">新規タスク登録</h5>
 		        </div>
 		        <div class="card-body p-4">
@@ -54,7 +54,7 @@
 		
 		                <div class="d-flex justify-content-between">
 		                    <a href="TaskListServlet" class="btn btn-outline-secondary">キャンセル</a>
-		                    <button type="submit" class="btn btn-primary px-4">登録する</button>
+		                    <button type="submit" class="btn btn-success px-4">登録する</button>
 		                </div>
 		            </form>
 		        </div>

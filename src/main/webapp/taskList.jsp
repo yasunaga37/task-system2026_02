@@ -113,7 +113,7 @@
 							<%-- 状態に応じたクラス名を決定 --%>
 							<c:set var="status" value="${task.deadlineStatus}" />
 						<tr class="${status == 'muted' ? 'text-muted' : ''}">
-							<td>${task.taskId}</td>
+							<td class="pe-4 text-end">${task.taskId}</td>
 							<td
 								class="
 							            ${status == 'danger' ? 'text-danger fw-bold' : ''} 
