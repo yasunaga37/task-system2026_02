@@ -1,28 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" 	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<title>新規タスク登録 | コンビニ管理</title>
-		<link
-			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-		<style>
-		/* 固定ヘッダー・フッターにコンテンツが被らないための調整 */
-		body {
-			padding-top: 30px; /* ヘッダーの高さ分 */
-			padding-bottom: 60px; /* フッターの高さ分 */
-		}
-		</style>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	</head>
 <body class="bg-light">
 
 	<%@ include file="/common/header.jsp"%>
-
-	<main class="container">
-		<div class="container mt-5">
+	
+	<main class="container main-center py-3">
+		<div class="container py-0">
 		    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
-		        <div class="card-header bg-primary text-white">
+		        <div class="card-header bg-success text-white">
 		            <h5 class="mb-0">新規タスク登録</h5>
 		        </div>
 		        <div class="card-body p-4">
@@ -54,7 +47,7 @@
 		
 		                <div class="d-flex justify-content-between">
 		                    <a href="TaskListServlet" class="btn btn-outline-secondary">キャンセル</a>
-		                    <button type="submit" class="btn btn-primary px-4">登録する</button>
+		                    <button type="submit" class="btn btn-success px-4" onclick="return confirm('この内容で登録しますか？');" >登録する</button>
 		                </div>
 		            </form>
 		        </div>
