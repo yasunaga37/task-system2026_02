@@ -10,7 +10,7 @@
 </head>
 <body class="bg-light">
 
-	<%@ include file="/common/header.jsp"%>
+	<%@ include file="/common/header.jsp" %>
 	
 	<c:if test="${not empty flash}">
 	    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
@@ -114,10 +114,7 @@
 							<c:set var="status" value="${task.deadlineStatus}" />
 						<tr class="${status == 'muted' ? 'text-muted' : ''}">
 							<td class="pe-4 text-end">${task.taskId}</td>
-							<td
-								class="
-							            ${status == 'danger' ? 'text-danger fw-bold' : ''} 
-							            ${status == 'warning' ? 'text-warning fw-bold' : ''}">
+							<td class="${status == 'danger' ? 'text-danger fw-bold' : ''} ${status == 'warning' ? 'text-warning fw-bold' : ''}">
 								<c:choose>
 									<c:when test="${status == 'danger'}">
 										<i class="bi bi-exclamation-triangle-fill"></i>
@@ -227,7 +224,7 @@
 		</div>
 	</main>
 
-	<%@ include file="/common/footer.jsp"%>
+	<%@ include file="/common/footer.jsp" %>
 
 	<script src="${pageContext.request.contextPath}/js/script.js"></script>
 

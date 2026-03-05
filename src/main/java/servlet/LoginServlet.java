@@ -14,6 +14,21 @@ import dao.UserDAO;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * ログイン処理：ユーザーIDとパスワードを受け取り、認証を行います。
+	 * 認証成功ならセッションにユーザーデータを保存してタスク一覧へリダイレクト。
+	 * 認証失敗ならエラーメッセージを持ってログイン画面に戻ります。
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -30,6 +45,7 @@ public class LoginServlet extends HttpServlet {
 			// ログイン成功：セッションに保存して一覧画面へ
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", user);
+//			response.sendRedirect("taskList.jsp");
 			response.sendRedirect("TaskListServlet");
 		} else {
 			// ログイン失敗：エラーメッセージを持ってログイン画面に戻る
