@@ -44,6 +44,14 @@ main.container-fluid {
 	flex: 1;
 }
 
+.badge-align {
+  display: flex;
+  align-items: center;
+  height: 2.2rem;
+  padding: 0 0.75rem;
+  font-size: 0.9rem;
+}
+
 /* ===============================
    一覧画面 (taskList.jsp)
    ================================ */

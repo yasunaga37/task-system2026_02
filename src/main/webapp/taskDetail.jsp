@@ -28,10 +28,27 @@
 
 		<%---------------- ここからタスク詳細欄の開始 ------------------%>
 		<div class="card mb-4 shadow-sm">
-			<div 	class="card-header bg-success text-white d-flex justify-content-between">
-				<span>タスク詳細 #${task.taskId}</span> 
-				<span class="badge ${task.categoryColorClass}">${task.categoryName}</span>
+			
+			<div class="card-header bg-info text-white d-flex justify-content-between align-items-center" style="min-height: 3rem;">
+			  <span>タスク詳細 #${task.taskId}</span> 
+			  <div class="ms-auto d-flex gap-2">
+			    <span class="badge ${task.categoryColorClass} badge-align">${task.categoryName}</span>
+			    <span class="badge ${task.statusColorClass} badge-align">${task.statusName}</span>
+			    
+			    <%-- 完了ボタン：TaskStatusUpdateServlet に statusCode=90 を送る --%>
+				<c:if test="${task.statusCode != '90'}">
+					<form action="TaskStatusUpdateServlet" method="post" style="display: inline;" onsubmit="return confirm('このタスクを完了にしてもよろしいですか？');">
+						<input type="hidden" name="taskId" value="${task.taskId}">
+						<%-- 完了コード '90' を送信 --%>
+						<input type="hidden" name="statusCode" value="90">
+						<button type="submit" class="btn btn-sm btn-primary">
+							<i class="bi bi-check-lg"></i> ステータスを完了する
+						</button>
+					</form>
+				</c:if>
+			  </div>
 			</div>
+			
 			<div class="card-body">
 				<%-- タスク名とボタンを横並びにする --%>
 				<div class="d-flex align-items-center mb-4 gap-3">
@@ -44,27 +61,13 @@
 							class="btn btn-sm btn-outline-primary"> 
 							<i class="bi bi-pencil-square"></i> 編集する
 						</a>
-
-						<%-- 完了ボタン：TaskStatusUpdateServlet に statusCode=90 を送る --%>
-						<c:if test="${task.statusCode != '90'}">
-							<form action="TaskStatusUpdateServlet" method="post"
-								style="display: inline;"
-								onsubmit="return confirm('このタスクを完了にしてもよろしいですか？');">
-								<input type="hidden" name="taskId" value="${task.taskId}">
-								<%-- 完了コード '90' を送信 --%>
-								<input type="hidden" name="statusCode" value="90">
-								<button type="submit" class="btn btn-sm btn-success">
-									<i class="bi bi-check-lg"></i> 完了する
-								</button>
-							</form>
-						</c:if>
 					</div>
 				</div>
 
 				<p class="text-muted mb-0">
 				<div class="mb-3">
 					<label class="form-label text-muted small">担当者</label><i class="bi bi-person-fill"></i> ${task.userName} 様
-					&nbsp;&nbsp;&nbsp;&nbsp;期限：${task.limitDate} / 	&nbsp;&nbsp;ステータス：${task.statusName}
+				&nbsp;&nbsp;&nbsp;&nbsp;期限：${task.limitDate} <%-- / 	 	&nbsp;&nbsp;ステータス：${task.statusName} --%>
 				</div>
 				</p>
 				<hr>

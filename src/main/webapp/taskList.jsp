@@ -124,60 +124,52 @@
 									</c:when>
 								</c:choose> ${task.limitDate}
 							</td>
-							<td><c:choose>
+							<td>
+								<c:choose>
 									<%-- contains を使うか、ID判定にすると確実です --%>
 									<c:when test="${task.categoryId == 1}">
 										<!-- 販売促進　色未定 -->
-										<c:set var="categoryColor"
-											value="bg-info-subtle text-primary-emphasis" />
+										<c:set var="categoryColor" value="bg-info-subtle text-primary-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 2}">
 										<!-- 設備修理　色未定 -->
-										<c:set var="categoryColor"
-											value="bg-primary-subtle text-primary-emphasis" />
+										<c:set var="categoryColor" value="bg-primary-subtle text-primary-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 3}">
 										<!-- 清掃・衛生　清潔感のあるグリーン -->
-										<c:set var="categoryColor"
-											value="bg-success-subtle text-success-emphasis" />
+										<c:set var="categoryColor" value="bg-success-subtle text-success-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 4}">
 										<!-- 報告事項　警戒を促すピンク/レッド -->
-										<c:set var="categoryColor"
-											value="bg-danger-subtle text-danger-emphasis" />
+										<c:set var="categoryColor" value="bg-danger-subtle text-danger-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 5}">
 										<!-- 緊急連絡　警戒を促すピンク/レッド -->
-										<c:set var="categoryColor"
-											value="bg-danger-subtle text-danger-emphasis" />
+										<c:set var="categoryColor" value="bg-danger-subtle text-danger-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 8}">
 										<!-- 接客・レジ　信頼感のあるブルー -->
-										<c:set var="categoryColor"
-											value="bg-primary-subtle text-primary-emphasis" />
+										<c:set var="categoryColor" value="bg-primary-subtle text-primary-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 9}">
 										<!-- 発注・在庫　注意を引くイエロー/オレンジ -->
-										<c:set var="categoryColor"
-											value="bg-warning-subtle text-primary-emphasis" />
+										<c:set var="categoryColor" value="bg-warning-subtle text-primary-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 10}">
 										<!-- 売場・POP　鮮やかなライトブルー -->
-										<c:set var="categoryColor"
-											value="bg-info-subtle text-primary-emphasis" />
+										<c:set var="categoryColor" value="bg-info-subtle text-primary-emphasis" />
 									</c:when>
 									<c:when test="${task.categoryId == 11}">
 										<!-- 事務・管理　落ち着いたグレー -->
-										<c:set var="categoryColor"
-											value="bg-secondary-subtle text-primary-emphasis" />
+										<c:set var="categoryColor" value="bg-secondary-subtle text-primary-emphasis" />
 									</c:when>
 									<c:otherwise>
 										<%-- どれにも当てはまらない場合はグレー --%>
-										<c:set var="categoryColor"
-											value="bg-secondary-subtle text-secondary-emphasis" />
+										<c:set var="categoryColor" value="bg-secondary-subtle text-secondary-emphasis" />
 									</c:otherwise>
-								</c:choose> <span class="badge rounded-pill ${categoryColor}">
-									${task.categoryName} </span></td>
+								</c:choose> 
+								<span class="badge rounded-pill ${categoryColor}">	${task.categoryName} </span>
+							</td>
 
 							<td><i class="bi-geo-alt small border">${task.userName}</i></td>
 
