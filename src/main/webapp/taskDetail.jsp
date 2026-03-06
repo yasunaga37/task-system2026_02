@@ -30,7 +30,7 @@
 		<div class="card mb-4 shadow-sm">
 			
 			<div class="card-header bg-success text-white d-flex justify-content-between align-items-center" style="min-height: 3rem;">
-			  <span>タスク詳細 #${task.taskId}</span> 
+			  <h5><span>タスク詳細 #${task.taskId}</span></h5>
 			  <div class="ms-auto d-flex gap-2">
 			    <span class="badge ${task.categoryColorClass} badge-align">${task.categoryName}</span>
 			    <span class="badge ${task.statusColorClass} badge-align">${task.statusName}</span>
@@ -51,14 +51,12 @@
 			
 			<div class="card-body">
 				<%-- タスク名とボタンを横並びにする --%>
-				<div class="d-flex align-items-center mb-4 gap-3">
-					<%-- 既存の h3 スタイルを維持 --%>
-					<h3 class="card-title fw-bold mb-0">${task.taskName}</h3>
+				<div class="d-flex align-items-center mb-4 gap-3">					
+					<h5 class="card-title fw-bold mb-0">${task.taskName}</h5>
 
 					<div class="d-flex gap-2">
 						<%-- 編集ボタン：編集画面へ遷移する --%>
-						<a href="TaskEditServlet?taskId=${task.taskId}"
-							class="btn btn-sm btn-outline-primary"> 
+						<a href="TaskEditServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary"> 
 							<i class="bi bi-pencil-square"></i> 編集する
 						</a>
 					</div>
@@ -79,7 +77,7 @@
 		<%---------------- ここからコメント・進捗報告欄の始まり ------------------%>
 		<div class="card shadow-sm">
 			<div class="card-header bg-light fw-bold">コメント・進捗報告</div>
-			<div class="card-body">
+			<div class="card-body" style="max-height: 400px; overflow-y: auto;">
 				<c:forEach var="comment" items="${commentList}">
 					<%-- 階層(level)に応じて左側の余白（margin-left）を計算して付与 --%>
 					<div class="mb-3 border-start ps-3" style="margin-left: ${(comment.level - 1) * 3}rem;">
