@@ -30,7 +30,16 @@
 		<div class="card mb-4 shadow-sm">
 			
 			<div class="card-header bg-success text-white d-flex justify-content-between align-items-center" style="min-height: 3rem;">
-			  <h5><span>タスク詳細 #${task.taskId}</span></h5>
+				<div class="d-flex align-items-center flex-wrap gap-3">
+			  		<h5 class="mb-0 mt-1">タスク詳細  taskID:${task.taskId}&emsp;</h5>
+					<span class="rounded px-2 py-1 text-dark bg-success-subtle">
+					  <i class="bi bi-person-fill me-1"></i><strong>${task.userName}</strong> 様
+					</span>
+					
+					<span class="rounded px-2 py-1 text-dark bg-success-subtle">
+					  <i class="bi bi-calendar-event me-1"></i><strong>${task.limitDate}</strong>
+					</span>
+			  	</div>
 			  <div class="ms-auto d-flex gap-2">
 			    <span class="badge ${task.categoryColorClass} badge-align">${task.categoryName}</span>
 			    <span class="badge ${task.statusColorClass} badge-align">${task.statusName}</span>
@@ -62,16 +71,9 @@
 					</div>
 				</div>
 
-				<p class="text-muted mb-0">
-				<div class="mb-3">
-					<label class="form-label text-muted small">担当者</label><i class="bi bi-person-fill"></i> ${task.userName} 様
-				&nbsp;&nbsp;&nbsp;&nbsp;期限：${task.limitDate} <%-- / 	 	&nbsp;&nbsp;ステータス：${task.statusName} --%>
-				</div>
-				</p>
-				<hr>
 				<div class="card-text border p-3 bg-light rounded" style="white-space: pre-wrap;">${task.memo}</div>
-			</div>
-		</div>
+			</div><%-- <div class="card-body">の終わり --%>
+		</div><%-- <div class="card mb-4 shadow-sm">の終わり --%>
 		<%---------------- ここまででタスク詳細欄の終わり ------------------%>
 
 		<%---------------- ここからコメント・進捗報告欄の始まり ------------------%>
@@ -125,8 +127,8 @@
 									<button class="btn btn-sm btn-outline-primary" type="submit">送信</button>
 								</div>
 							</form>
-						</div><%-- 返信入力フォーム（既存のものをそのまま維持）の終了 --%>
-					</div><%-- 階層(level)に応じて左側の余白（margin-left）を計算して付与の終了 --%>
+						</div>
+					</div>
 				</c:forEach>
 				
 				<%-- 進捗報告・コメント入力フォーム --%>

@@ -30,7 +30,7 @@
 		<div class="container py-4">
 			<div class="card shadow-sm mx-auto" style="max-width: 700px;">
 				<div class="card-header bg-success text-white">
-					<h5 class="mb-0">タスク編集 #${task.taskId}</h5>
+					<h5 class="mb-0">タスク編集  taskID:${task.taskId}</h5>
 				</div>
 				<div class="card-body">
 					<form action="TaskEditServlet" method="post" id="editForm">

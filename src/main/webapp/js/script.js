@@ -79,3 +79,5 @@ function clearOtherAndSubmit(changed) {
     document.getElementById('searchForm').submit();
 }
 
+
+

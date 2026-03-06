@@ -52,6 +52,23 @@ main.container-fluid {
   font-size: 0.9rem;
 }
 
+/* ------------------------------------------	
+		タスクの状態を示すバッジのスタイル 
+ 使用例:  
+ <span class="task-info-badge"> 
+	<i class="bi bi-person-fill me-1"></i>${task.userName} 様 
+ </span>
+ ------------------------------------------- */
+.task-info-badge {
+  border: 2px solid #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
+
+
 /* ===============================
    一覧画面 (taskList.jsp)
    ================================ */
