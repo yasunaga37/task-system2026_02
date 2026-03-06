@@ -104,20 +104,18 @@ public class TaskBean implements Serializable {
 	 * @return カテゴリーIDに応じたBootstrapの背景色クラスを返す
 	 */
 	public String getCategoryColorClass() {
-		switch (this.categoryId) {
-		case 1:
-			return "bg-primary"; // 青
-		case 2:
-			return "bg-warning text-dark"; // 黄
-		case 3:
-			return "bg-info text-dark"; // 水色
-		case 4:
-			return "bg-success"; // 緑
-		case 5:
-			return "bg-danger"; // 赤
-		default:
-			return "bg-secondary"; // 灰
-		}
+	    switch (this.categoryId) {
+        case 1: return "bg-info-subtle text-primary-emphasis";        // 販売促進    水色
+        case 2: return "bg-warning-subtle text-dark-emphasis";       // 設備修理    黄
+        case 3: return "bg-info-subtle text-success-emphasis";        // 清掃・衛生  水色
+        case 4: return "bg-success-subtle text-warning-emphasis";  // 報告事項     緑
+        case 5: return "bg-danger-subtle text-danger-emphasis";    // 緊急連絡     赤
+        case 8: return "bg-primary-subtle text-primary-emphasis";  // 接客・レジ   青
+        case 9: return "bg-warning-subtle text-info-emphasis";       // 発注・在庫   黄
+        case 10: return "bg-info-subtle text-success-emphasis";      // 売場・POP   水色
+        case 11: return "bg-secondary-subtle text-info-emphasis";   // 事務・管理   緑
+        default: return "bg-secondary-subtle text-secondary-emphasis"; // その他   緑
+	    }
 	}
 
 	/**
@@ -126,17 +124,31 @@ public class TaskBean implements Serializable {
 	 */
 	public String getStatusColorClass() {
 		switch (this.statusCode) {
-		case "00":
-			return "bg-secondary";
-		case "10":
-			return "bg-warning text-dark";
-		case "50":
-			return "bg-primary";
-		case "90":
-			return "bg-dark";
-		default:
-			return "bg-light text-dark";
+        case "00": return "bg-danger text-white";                            // 未着手   赤
+        case "10": return "bg-info text-white";                                 // 確認中   水色  
+        case "50": return "bg-primary text-white";                            // 対応中   青
+        case "90": return "bg-dark-subtle text-secondary-emphasis";  // 完了     灰色
+        default: return "bg-dark text-white";                                    // その他  灰色
 		}
+	}
+	
+	/**
+	 * カテゴリーIDに応じたBootstrapの枠線クラスを返す
+	 * @return カテゴリーIDに応じたBootstrapの枠線クラスを返す
+	 */
+	public String getCategoryBorderClass() {
+	    switch (this.categoryId) {
+	        case 1: return "border-info";       // 販売促進
+	        case 2: return "border-warning";       // 設備修理
+	        case 3: return "border-info";       // 清掃・衛生
+	        case 4: return "border-success";        // 報告事項
+	        case 5: return "border-danger";        // 緊急連絡
+	        case 8: return "border-primary";       // 接客・レジ
+	        case 9: return "border-warning";       // 発注・在庫
+	        case 10: return "border-info";         // 売場・POP
+	        case 11: return "border-secondary";    // 事務・管理
+	        default: return "border-secondary";  // その他
+	    }
 	}
 
 	/**

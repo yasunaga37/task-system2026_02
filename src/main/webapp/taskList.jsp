@@ -113,7 +113,11 @@
 							<%-- 状態に応じたクラス名を決定 --%>
 							<c:set var="status" value="${task.deadlineStatus}" />
 						<tr class="${status == 'muted' ? 'text-muted' : ''}">
+						
+							<%-- TaskID --%>
 							<td class="pe-4 text-end">${task.taskId}</td>
+							
+							<%-- 期限 --%>
 							<td class="${status == 'danger' ? 'text-danger fw-bold' : ''} ${status == 'warning' ? 'text-warning fw-bold' : ''}">
 								<c:choose>
 									<c:when test="${status == 'danger'}">
@@ -124,90 +128,37 @@
 									</c:when>
 								</c:choose> ${task.limitDate}
 							</td>
+							
+							<%-- カテゴリ(カテゴリー別に色分け) --%>
 							<td>
-								<c:choose>
-									<%-- contains を使うか、ID判定にすると確実です --%>
-									<c:when test="${task.categoryId == 1}">
-										<!-- 販売促進　色未定 -->
-										<c:set var="categoryColor" value="bg-info-subtle text-primary-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 2}">
-										<!-- 設備修理　色未定 -->
-										<c:set var="categoryColor" value="bg-primary-subtle text-primary-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 3}">
-										<!-- 清掃・衛生　清潔感のあるグリーン -->
-										<c:set var="categoryColor" value="bg-success-subtle text-success-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 4}">
-										<!-- 報告事項　警戒を促すピンク/レッド -->
-										<c:set var="categoryColor" value="bg-danger-subtle text-danger-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 5}">
-										<!-- 緊急連絡　警戒を促すピンク/レッド -->
-										<c:set var="categoryColor" value="bg-danger-subtle text-danger-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 8}">
-										<!-- 接客・レジ　信頼感のあるブルー -->
-										<c:set var="categoryColor" value="bg-primary-subtle text-primary-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 9}">
-										<!-- 発注・在庫　注意を引くイエロー/オレンジ -->
-										<c:set var="categoryColor" value="bg-warning-subtle text-primary-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 10}">
-										<!-- 売場・POP　鮮やかなライトブルー -->
-										<c:set var="categoryColor" value="bg-info-subtle text-primary-emphasis" />
-									</c:when>
-									<c:when test="${task.categoryId == 11}">
-										<!-- 事務・管理　落ち着いたグレー -->
-										<c:set var="categoryColor" value="bg-secondary-subtle text-primary-emphasis" />
-									</c:when>
-									<c:otherwise>
-										<%-- どれにも当てはまらない場合はグレー --%>
-										<c:set var="categoryColor" value="bg-secondary-subtle text-secondary-emphasis" />
-									</c:otherwise>
-								</c:choose> 
-								<span class="badge rounded-pill ${categoryColor}">	${task.categoryName} </span>
+								<span class="badge rounded-pill border ${task.categoryColorClass} ${task.categoryBorderClass}">${task.categoryName}</span>
 							</td>
 
-							<td><i class="bi-geo-alt small border">${task.userName}</i></td>
+							<%-- 担当者名 --%>
+<%-- 							<td><i class="bi-geo-alt small border">${task.userName}</i></td> --%>
+                            <td>
+							  <span class="border border-2 border-light rounded px-0 py-0 d-inline-block">
+							    <i class="bi bi-geo-alt-fill me-1"></i>${task.userName}
+							  </span>
+							</td>
 
-							<%-- 完了済みはタスク名に打ち消し線を入れるなどのアレンジも可能 --%>
+							
+							<%-- タスク名(完了済みはタスク名に打ち消し線を入れる) --%>
 							<td
 								class="${status == 'muted' ? 'text-decoration-line-through' : ''}">
-								${task.taskName}</td>
-
-							<td>
-								<%-- ステータスのバッジ表示 --%> <%-- ステータスコードに応じた色分け設定 --%> <c:choose>
-									<%-- 完了 (90) の場合：パステルグレー --%>
-									<c:when test="${task.statusCode == '90'}">
-										<c:set var="statusClass"
-											value="bg-secondary-subtle text-secondary-emphasis" />
-									</c:when>
-
-									<%-- 未着手 (10など) の場合：濃い赤や黄色など（注意を引く） --%>
-									<c:when test="${task.statusCode == '00'}">
-										<c:set var="statusClass" value="bg-danger text-white" />
-									</c:when>
-
-									<%-- 進行中 (20など) の場合：濃い青（活動的） --%>
-									<c:when test="${task.statusCode == '10'}">
-										<c:set var="statusClass" value="bg-primary text-white" />
-									</c:when>
-
-									<%-- その他：濃いグレーなど --%>
-									<c:otherwise>
-										<c:set var="statusClass" value="bg-secondary text-white" />
-									</c:otherwise>
-								</c:choose> <%-- 決定したクラスを適用してバッジを表示 --%> <span
-								class="badge rounded-pill ${statusClass}">
-									${task.statusName} </span>
+								${task.taskName}
 							</td>
-							<td><a href="TaskDetailServlet?taskId=${task.taskId}"
-								class="btn btn-sm btn-outline-primary">詳細</a> 
-								<a href="TaskEditServlet?taskId=${task.taskId}"
-								class="btn btn-sm btn-outline-primary">編集</a></td>
+
+							<%-- ステータスのバッジ表示(ステータスコードに応じた色分け設定) --%>
+							<td>
+								 <span class="badge rounded-pill ${task.statusColorClass}">${task.statusName}</span>
+							</td>
+							
+							<%-- 操作欄 --%>
+							<td>
+								<a href="TaskDetailServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">詳細</a> 
+								<a href="TaskEditServlet?taskId=${task.taskId}" class="btn btn-sm btn-outline-primary">編集</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

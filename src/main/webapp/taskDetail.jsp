@@ -29,7 +29,7 @@
 		<%---------------- ここからタスク詳細欄の開始 ------------------%>
 		<div class="card mb-4 shadow-sm">
 			
-			<div class="card-header bg-info text-white d-flex justify-content-between align-items-center" style="min-height: 3rem;">
+			<div class="card-header bg-success text-white d-flex justify-content-between align-items-center" style="min-height: 3rem;">
 			  <span>タスク詳細 #${task.taskId}</span> 
 			  <div class="ms-auto d-flex gap-2">
 			    <span class="badge ${task.categoryColorClass} badge-align">${task.categoryName}</span>
@@ -41,9 +41,9 @@
 						<input type="hidden" name="taskId" value="${task.taskId}">
 						<%-- 完了コード '90' を送信 --%>
 						<input type="hidden" name="statusCode" value="90">
-						<button type="submit" class="btn btn-sm btn-primary">
-							<i class="bi bi-check-lg"></i> ステータスを完了する
-						</button>
+                        <button type="submit" class="btn btn-sm btn-light align-self-center" style="height: 2.2rem;">
+						  <i class="bi bi-check-lg"></i> ステータスを完了する
+						</button>	
 					</form>
 				</c:if>
 			  </div>
