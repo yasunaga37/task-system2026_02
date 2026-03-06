@@ -125,8 +125,8 @@
 									<button class="btn btn-sm btn-outline-primary" type="submit">送信</button>
 								</div>
 							</form>
-						</div>
-					</div>
+						</div><%-- 返信入力フォーム（既存のものをそのまま維持）の終了 --%>
+					</div><%-- 階層(level)に応じて左側の余白（margin-left）を計算して付与の終了 --%>
 				</c:forEach>
 				
 				<%-- 進捗報告・コメント入力フォーム --%>
