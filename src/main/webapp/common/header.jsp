@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
 	<div class="container">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-            <a class="navbar-brand fw-bold text-primary" href="TaskListServlet"> 
+            <a class="navbar-brand fw-bold text-dark-emphasis" href="TaskListServlet"> 
             	<i class="bi bi-clipboard-check me-2"></i>タスク管理 
             </a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -11,12 +11,12 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-				    <a class="nav-link fw-bold text-primary border-primary border-2" href="TaskListServlet">
+				    <a class="nav-link fw-bold text-dark-emphasis border-primary border-2" href="TaskListServlet">
 				      <i class="bi bi-list-task me-1"></i>タスク一覧
 				    </a>
 				  </li>
 				  <li class="nav-item">
-				    <a class="nav-link fw-bold text-primary border-primary border-2" href="TaskRegisterServlet">
+				    <a class="nav-link fw-bold text-dark-emphasis border-primary border-2" href="TaskRegisterServlet">
 				      <i class="bi bi-plus-circle me-1"></i>タスク登録
 				    </a>
 				  </li>
